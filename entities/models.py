@@ -46,10 +46,3 @@ class Person(TempEntityClass):
             return self.name
         elif self.first_name == "" and self.name == "":
             return "no name provided"
-
-    def save(self, *args, **kwargs):
-        if self.first_name:
-            if self.first_name != unicodedata.normalize('NFC', self.first_name):
-                self.first_name = unicodedata.normalize('NFC', self.first_name)
-        super(Person, self).save(*args, **kwargs)
-        return self
