@@ -1,7 +1,7 @@
 from django.db import models
+from django.utils.text import Truncator
 from vocabs.models import SkosConcept
-from entities.models import Person
-from entities.models import Institution
+from entities.models import Person, Institution, Event
 from entities.validators import date_validator
 from bib.models import Book
 
@@ -12,17 +12,21 @@ class Collection(models.Model):
     name = models.CharField(max_length=250, blank=True)
     abbreviation = models.CharField(max_length=25, blank=True)
 
+    def __str__(self):
+        return "{}".format(self.abbreviation)
+
 
 class Card(models.Model):
     """This class describes a post-card like entity"""
 
+    title = models.CharField(max_length=250, blank=True)
     legacy_id = models.CharField(max_length=25, blank=True)
     collection = models.ForeignKey(Collection, blank=True)
     descriptions = models.TextField(blank=True)
-    lenght = models.IntegerField(null=True)
-    height = models.IntegerField(null=True)
-    scan_front = models.ImageField(null=True)
-    scan_back = models.ImageField(null=True)
+    lenght = models.IntegerField(blank=True, null=True)
+    height = models.IntegerField(blank=True, null=True)
+    scan_front = models.ImageField(blank=True, null=True)
+    scan_back = models.ImageField(blank=True, null=True)
     text_front = models.TextField(blank=True)
     text_back = models.TextField(blank=True)
     printing_method = models.ForeignKey(SkosConcept, blank=True, null=True)
@@ -44,9 +48,19 @@ class Card(models.Model):
     mentioned_person = models.ManyToManyField(
         Person, blank=True, related_name='mentioned_person'
     )
-    mentioned_person = models.ManyToManyField(
+    mentioned_institution = models.ManyToManyField(
         Institution, blank=True, related_name='mentioned_institution'
     )
     mentioned_concept = models.ManyToManyField(
         SkosConcept, blank=True, related_name='mentioned_concept'
     )
+    mentioned_event = models.ManyToManyField(
+        Event, blank=True, related_name='mentioned_event'
+    )
+    public = models.BooleanField(default=False)
+
+    def __str__(self):
+        return "{}, {}: '{}'".format(
+            self.collection, self.legacy_id,
+            Truncator(self.title).chars(25)
+        )

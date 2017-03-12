@@ -4,6 +4,11 @@ from places.models import Place
 from vocabs.models import SkosConcept
 
 
+class Event(TempEntityClass):
+    kind = models.ManyToManyField(SkosConcept, blank=True)
+    located_in = models.ForeignKey(Place, blank=True, null=True)
+
+
 class Institution(TempEntityClass):
     kind = models.ManyToManyField(SkosConcept, blank=True)
     homepage = models.URLField(blank=True, null=True)

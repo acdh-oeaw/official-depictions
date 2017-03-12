@@ -5,6 +5,12 @@ from django.db import models
 from .validators import date_validator
 
 
+class NormDataRecord(models.Model):
+    url = models.CharField(max_length=255, blank=True)
+
+    def __str__(self):
+        return self.url
+
 class TempEntityClass(models.Model):
     """ Base class to bind common attributes to many classes.
 
@@ -29,6 +35,7 @@ class TempEntityClass(models.Model):
         validators=[date_validator, ], verbose_name="End",
         help_text="Please enter a date (DD).(MM).YYYY")
     note = models.TextField(blank=True, null=True)
+    norm_data_reference = models.ManyToManyField(NormDataRecord, blank=True)
 
     def __str__(self):
         if self.name != "":  # relation usually don´t have names
