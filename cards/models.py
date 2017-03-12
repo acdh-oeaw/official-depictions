@@ -25,7 +25,7 @@ class Card(models.Model):
     scan_back = models.ImageField(null=True)
     text_front = models.TextField(blank=True)
     text_back = models.TextField(blank=True)
-    printing_method = models.ForeignKey(SkosConcept, blank=True)
+    printing_method = models.ForeignKey(SkosConcept, blank=True, null=True)
     artist = models.ManyToManyField(Person, blank=True, related_name='card_creator')
     reference = models.ManyToManyField(Book, blank=True)
     published_written = models.CharField(
