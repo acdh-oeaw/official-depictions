@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.text import Truncator
 from vocabs.models import SkosConcept
 from entities.models import Person, Institution, Event
+from entities.models_base import match_date
 from entities.validators import date_validator
 from bib.models import Book
 
@@ -21,7 +22,7 @@ class Card(models.Model):
 
     title = models.CharField(max_length=250, blank=True)
     legacy_id = models.CharField(max_length=25, blank=True)
-    collection = models.ForeignKey(Collection, blank=True)
+    collection = models.ForeignKey(Collection, blank=True, null=True)
     descriptions = models.TextField(blank=True)
     lenght = models.IntegerField(blank=True, null=True)
     height = models.IntegerField(blank=True, null=True)
@@ -41,6 +42,7 @@ class Card(models.Model):
         max_length=255, blank=True, null=True,
         validators=[date_validator, ],
         help_text="Please enter a date (DD).(MM).YYYY")
+    run = models.DateField(blank=True, null=True)
     hosting_institution = models.ManyToManyField(Institution, blank=True)
     note = models.TextField(blank=True, null=True)
     reference = models.ManyToManyField(Book, blank=True)
@@ -64,3 +66,13 @@ class Card(models.Model):
             self.collection, self.legacy_id,
             Truncator(self.title).chars(25)
         )
+
+    def save(self, *args, **kwargs):
+        """Adaption of the save() method of the class to automatically parse string-dates into date objects
+        """
+        if self.published_written:
+            self.published, self.published_written = match_date(self.published_written)
+        if self.run_written:
+            self.run, self.run_written = match_date(self.run_written)
+        super(Card, self).save(*args, **kwargs)
+        return self

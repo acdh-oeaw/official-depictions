@@ -6,6 +6,6 @@ PROJECT_METADATA = {
     'author': 'Peter Andorfer',
     'subtitle': 'A digital collection of war-postcards published by the Austrian-Hungarian Empire',
     'description': 'some text to come',
-    'github': 'https://github.com/acdh-oeaw/depictions',
+    'github': 'https://github.com/acdh-oeaw/official-depictions',
     'purpose_de': 'Das Ziel des Projekts "Offical Depictions" ist die Publikation von Daten über Postkarten.',
     'purpose_en': 'The purpose of the project "Offical Depictions" is the publication of data about postcards.'}
