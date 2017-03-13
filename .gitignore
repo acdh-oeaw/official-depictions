@@ -14,3 +14,4 @@ __pycache__/
 /depctions/settings/mysql.py
 /depctions/settings/postgres.py
 /play.ipynb
+/staticfiles/*
