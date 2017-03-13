@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.text import Truncator
 from vocabs.models import SkosConcept
-from entities.models import Person, Institution, Event
+from entities.models import Person, Institution, Event, Place
 from entities.models_base import match_date
 from entities.validators import date_validator
 from bib.models import Book
@@ -49,6 +49,9 @@ class Card(models.Model):
     mentioned_work = models.ManyToManyField(Book, blank=True, related_name='mentioned_work')
     mentioned_person = models.ManyToManyField(
         Person, blank=True, related_name='mentioned_person'
+    )
+    mentioned_place = models.ManyToManyField(
+        Place, blank=True, related_name='mentioned_place'
     )
     mentioned_institution = models.ManyToManyField(
         Institution, blank=True, related_name='mentioned_institution'
