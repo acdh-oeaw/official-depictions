@@ -28,6 +28,17 @@ class CardCollection(IdProvider):
             return prev.first().id
         return False
 
+    def get_absolute_url(self):
+        return reverse('cards:cardcol_detail', kwargs={'pk': self.id})
+
+    @classmethod
+    def get_listview_url(self):
+        return reverse('browsing:browse_cardcollections')
+
+    @classmethod
+    def get_createview_url(self):
+        return reverse('cards:cardcol_create')
+
 
 class Card(IdProvider):
     """This class describes a post-card like entity"""
@@ -36,7 +47,8 @@ class Card(IdProvider):
     legacy_id = models.CharField(max_length=25, blank=True, verbose_name="Lfd. Nr.")
     number = models.CharField(max_length=25, blank=True, verbose_name="Nr (Serie)")
     card_collection = models.ForeignKey(
-        CardCollection, blank=True, null=True, verbose_name="Serienkürzel"
+        CardCollection, blank=True, null=True, verbose_name="Serienkürzel",
+        related_name="conain_cards"
     )
     descriptions = models.TextField(blank=True)
     lenght = models.IntegerField(blank=True, null=True)

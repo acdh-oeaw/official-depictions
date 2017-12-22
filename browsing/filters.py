@@ -20,6 +20,23 @@ django_filters.filters.LOOKUP_TYPES = [
 ]
 
 
+class CardCollectionListFilter(django_filters.FilterSet):
+    name = django_filters.CharFilter(
+        lookup_expr='icontains',
+        help_text=CardCollection._meta.get_field('name').help_text,
+        label=CardCollection._meta.get_field('name').verbose_name
+        )
+    abbreviation = django_filters.CharFilter(
+        lookup_expr='icontains',
+        help_text=CardCollection._meta.get_field('abbreviation').help_text,
+        label=CardCollection._meta.get_field('abbreviation').verbose_name
+        )
+
+    class Meta:
+        model = CardCollection
+        fields = "__all__"
+
+
 class CardListFilter(django_filters.FilterSet):
     title = django_filters.CharFilter(
         lookup_expr='icontains',

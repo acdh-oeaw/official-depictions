@@ -4,6 +4,20 @@ from entities.models import *
 from cards.models import Card, CardCollection
 
 
+class CardCollectionTable(tables.Table):
+    name = tables.Column()
+    abbreviation = tables.LinkColumn(
+        'cards:cardcol_detail',
+        args=[A('pk')], verbose_name='Name'
+    )
+    card_collection = tables.Column()
+
+    class Meta:
+        model = CardCollection
+        sequence = ('name', 'abbreviation')
+        attrs = {"class": "table table-responsive table-hover"}
+
+
 class CardTable(tables.Table):
     legacy_id = tables.Column()
     number = tables.Column()

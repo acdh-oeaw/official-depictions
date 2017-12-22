@@ -4,9 +4,45 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
-from .forms import CardForm
-
+from .forms import CardForm, CardCollectionForm
 from .models import Card, CardCollection
+
+
+class CardCollectionDetailView(DetailView):
+    model = CardCollection
+    template_name = 'cards/cardcol_detail.html'
+
+
+class CardCollectionCreate(CreateView):
+
+    model = CardCollection
+    form_class = CardCollectionForm
+    template_name = 'cards/cardcol_create.html'
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(CardCollectionCreate, self).dispatch(*args, **kwargs)
+
+
+class CardCollectionUpdate(UpdateView):
+
+    model = CardCollection
+    form_class = CardCollectionForm
+    template_name = 'cards/cardcol_create.html'
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(CardCollectionUpdate, self).dispatch(*args, **kwargs)
+
+
+class CardCollectionDelete(DeleteView):
+    model = CardCollection
+    template_name = 'webpage/confirm_delete.html'
+    success_url = reverse_lazy('browsing:browse_cards')
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(CardCollectionDelete, self).dispatch(*args, **kwargs)
 
 
 class CardDetailView(DetailView):
