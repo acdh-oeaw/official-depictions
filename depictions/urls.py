@@ -27,5 +27,6 @@ urlpatterns = [
     url(r'^entities/', include('entities.urls', namespace='entities')),
     url(r'^bib/', include('bib.urls', namespace='bib')),
     url(r'^cards/', include('cards.urls', namespace='cards')),
+    url(r'^images/', include('images.urls', namespace='images')),
     url(r'^', include('webpage.urls', namespace='webpage')),
 ]

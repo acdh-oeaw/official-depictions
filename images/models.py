@@ -90,3 +90,7 @@ class Image(IdProvider):
 
     def get_absolute_url(self):
         return reverse('images:image_detail', kwargs={'pk': self.id})
+
+    @classmethod
+    def get_listview_url(self):
+        return reverse('images:image_list')
