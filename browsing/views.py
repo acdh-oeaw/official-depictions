@@ -227,7 +227,7 @@ class PlaceListView(GenericListView):
     table_class = PlaceTable
     filter_class = PlaceListFilter
     formhelper_class = PlaceFilterFormHelper
-    init_columns = ['id', 'name', 'lat', 'lng']
+    init_columns = ['id', 'place_written_name', 'lat', 'lng']
 
     def get_all_cols(self):
         all_cols = list(self.table_class.base_columns.keys())

@@ -70,6 +70,9 @@ class Card(IdProvider):
     note = models.TextField(blank=True, null=True, verbose_name="Formale Anmerkungen")
     note_content = models.TextField(blank=True, null=True, verbose_name="Inhaltliche Anmerkungen")
     reference = models.ManyToManyField(Book, blank=True)
+    bild_motiv = models.ManyToManyField(
+        SkosConcept, blank=True, related_name='bild_motiv'
+    )
     mentioned_work = models.ManyToManyField(Book, blank=True, related_name='mentioned_work')
     mentioned_person = models.ManyToManyField(
         Person, blank=True, related_name='mentioned_person'
@@ -83,7 +86,7 @@ class Card(IdProvider):
     mentioned_concept = models.ManyToManyField(
         SkosConcept, blank=True, related_name='mentioned_concept'
     )
-    mentioned_place = models.ManyToManyField(
+    mentioned_event = models.ManyToManyField(
         Event, blank=True, related_name='mentioned_event'
     )
     public = models.BooleanField(default=False)

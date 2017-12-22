@@ -64,7 +64,7 @@ class InstitutionTable(tables.Table):
 
 
 class PlaceTable(tables.Table):
-    name = tables.LinkColumn(
+    place_written_name = tables.LinkColumn(
         'entities:place_detail',
         args=[A('pk')], verbose_name='Name'
     )
@@ -72,7 +72,7 @@ class PlaceTable(tables.Table):
 
     class Meta:
         model = Place
-        sequence = ('id', 'name',)
+        sequence = ('id', 'place_written_name',)
         attrs = {"class": "table table-responsive table-hover"}
 
 

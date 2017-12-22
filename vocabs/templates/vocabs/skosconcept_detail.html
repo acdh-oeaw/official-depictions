@@ -117,6 +117,16 @@
                             <legend>
                                 related concepts
                             </legend>
+                            <legend>
+                                related cards
+                            </legend>
+                            <ul>
+                                {% for x in object.bild_motiv.all %}
+                                    <li>
+                                        <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
                         </div>
                     </div>
                 </div>

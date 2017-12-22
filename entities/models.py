@@ -8,13 +8,13 @@ class Event(IdProvider):
     name = models.CharField(max_length=250, blank=True, help_text="Alternative Name")
 
     def get_next(self):
-        next = AlternativeName.objects.filter(id__gt=self.id)
+        next = Event.objects.filter(id__gt=self.id)
         if next:
             return next.first().id
         return False
 
     def get_prev(self):
-        prev = AlternativeName.objects.filter(id__lt=self.id).order_by('-id')
+        prev = Event.objects.filter(id__lt=self.id).order_by('-id')
         if prev:
             return prev.first().id
         return False
@@ -62,7 +62,7 @@ class Place(IdProvider):
         ("country", "country")
     )
 
-    """Holds information about entities."""
+    place_written_name = name = models.CharField(max_length=250, blank=True)
     name = models.CharField(
         max_length=250, blank=True, help_text="Normalized name"
     )
@@ -130,7 +130,7 @@ class Place(IdProvider):
         return reverse('entities:place_detail', kwargs={'pk': self.id})
 
     def __str__(self):
-        return "{}".format(self.name)
+        return "{}".format(self.place_written_name)
 
 
 class Institution(IdProvider):

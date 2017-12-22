@@ -96,7 +96,7 @@
                     </th>
                     <td>
                         {% for x in object.artist.all %}
-                            <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                            <a href="{{ x.get_absolute_url }}">{{ x }}</a><br/>
                         {% endfor %}
                     </td>
                 </tr>
@@ -114,6 +114,26 @@
                     </th>
                     <td>
                         {{ object.run_written }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Orte
+                    </th>
+                    <td>
+                        {% for x in object.mentioned_place.all %}
+                            <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Bildmotiv
+                    </th>
+                    <td>
+                        {% for x in object.bild_motiv.all %}
+                            <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                        {% endfor %}
                     </td>
                 </tr>
 
