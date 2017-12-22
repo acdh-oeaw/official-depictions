@@ -49,6 +49,10 @@ class CardDetailView(DetailView):
     model = Card
     template_name = 'cards/card_detail.html'
 
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(CardDetailView, self).dispatch(*args, **kwargs)
+
 
 class CardCreate(CreateView):
 
