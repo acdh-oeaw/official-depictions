@@ -1,6 +1,8 @@
 from django.conf.urls import url
 from . import views
 
+app_name = 'browsing'
+
 urlpatterns = [
     url(r'cards/$', views.CardListView.as_view(), name='browse_cards'),
     url(r'cardcollections/$', views.CardCollectionListView.as_view(), name='browse_cardcollections'),

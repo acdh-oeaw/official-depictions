@@ -1,5 +1,5 @@
 from django.db import models
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from entities.models import Person, Institution
 from idprovider.models import IdProvider
 
@@ -23,7 +23,8 @@ class Collection(RepoObject):
     part_of = models.ForeignKey(
         'Collection', blank=True, null=True, verbose_name="acdh:isPartOf",
         help_text="Indicates A is a part of aggregate B, \
-        e. g. elements of a series, items of a collection.", related_name="has_part"
+        e. g. elements of a series, items of a collection.", related_name="has_part",
+        on_delete=True
     )
     has_contributor = models.ManyToManyField(
         Person, blank=True, verbose_name="acdh:hasContributor",

@@ -1,7 +1,7 @@
 import os
 from django.conf import settings
 from django.db import models
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.utils.text import slugify
 from django.utils.functional import cached_property
 
@@ -26,7 +26,7 @@ class SkosNamespace(models.Model):
 
 class SkosConceptScheme(models.Model):
     dc_title = models.CharField(max_length=300, blank=True)
-    namespace = models.ForeignKey(SkosNamespace, blank=True, null=True)
+    namespace = models.ForeignKey(SkosNamespace, blank=True, null=True, on_delete=True)
     dct_creator = models.URLField(blank=True)
     legacy_id = models.CharField(max_length=200, blank=True)
 
@@ -72,7 +72,7 @@ class SkosConcept(models.Model):
     definition_lang = models.CharField(max_length=3, blank=True, default="eng")
     label = models.ManyToManyField(SkosLabel, blank=True)
     notation = models.CharField(max_length=300, blank=True)
-    namespace = models.ForeignKey(SkosNamespace, blank=True, null=True)
+    namespace = models.ForeignKey(SkosNamespace, blank=True, null=True, on_delete=True)
     skos_broader = models.ManyToManyField('SkosConcept', blank=True, related_name="narrower")
     skos_narrower = models.ManyToManyField('SkosConcept', blank=True, related_name="broader")
     skos_related = models.ManyToManyField('SkosConcept', blank=True, related_name="related")

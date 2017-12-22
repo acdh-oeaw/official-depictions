@@ -1,6 +1,8 @@
 from django.conf.urls import url
 from . import views
 
+app_name = 'images'
+
 urlpatterns = [
     url(r'^$', views.ImageListView.as_view(), name='image_list'),
     url(r'^(?P<pk>[0-9]+)$', views.ImageDetailView.as_view(), name='image_detail'),

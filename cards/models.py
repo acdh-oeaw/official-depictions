@@ -1,5 +1,5 @@
 from django.db import models
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from vocabs.models import SkosConcept
 from entities.models import Person, Institution, Place, Event
 from bib.models import Book
@@ -48,16 +48,18 @@ class Card(IdProvider):
     number = models.CharField(max_length=25, blank=True, verbose_name="Nr (Serie)")
     card_collection = models.ForeignKey(
         CardCollection, blank=True, null=True, verbose_name="Serienkürzel",
-        related_name="conain_cards"
+        related_name="contain_cards", on_delete=True
     )
     descriptions = models.TextField(blank=True)
     lenght = models.IntegerField(blank=True, null=True)
     height = models.IntegerField(blank=True, null=True)
-    scan_front = models.ForeignKey(Image, blank=True, null=True, related_name="front_image_of")
-    scan_back = models.ForeignKey(Image, blank=True, null=True, related_name="back_image_of")
+    scan_front = models.ForeignKey(
+        Image, blank=True, null=True, related_name="front_image_of", on_delete=True)
+    scan_back = models.ForeignKey(
+        Image, blank=True, null=True, related_name="back_image_of", on_delete=True)
     text_front = models.TextField(blank=True, verbose_name="Text Bildseite (Zitat)")
     text_back = models.TextField(blank=True, verbose_name="Text Adressseite (Zitat)")
-    printing_method = models.ForeignKey(SkosConcept, blank=True, null=True)
+    printing_method = models.ForeignKey(SkosConcept, blank=True, null=True, on_delete=True)
     artist = models.ManyToManyField(Person, blank=True, related_name='card_creator')
     reference = models.ManyToManyField(Book, blank=True)
     published_written = models.CharField(

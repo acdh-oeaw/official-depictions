@@ -1,6 +1,8 @@
 from django.conf.urls import url
 from . import views
 
+app_name = 'cards'
+
 urlpatterns = [
     url(r'^cards/detail/(?P<pk>[0-9]+)$', views.CardDetailView.as_view(),
         name='card_detail'),

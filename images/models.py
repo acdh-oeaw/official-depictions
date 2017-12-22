@@ -1,7 +1,7 @@
 import os
 from django.db import models
 from django.conf import settings
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from idprovider.models import IdProvider
 
 
@@ -33,7 +33,7 @@ class ServerPath(IdProvider):
 
 
 class Image(IdProvider):
-    path = models.ForeignKey(ServerPath, blank=True, null=True)
+    path = models.ForeignKey(ServerPath, blank=True, null=True, on_delete=True)
     directory = models.CharField(blank=True, max_length=250)
     custom_filename = models.CharField(blank=True, max_length=250)
     file_extension = models.CharField(
