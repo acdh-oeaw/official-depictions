@@ -97,6 +97,15 @@ include 'autocomplete_light/static.html
                         </tr>
                     {% endif %}
                 </table>
+                <legend>Karten</legend>
+                <ul>
+                    {% for x in object.card_creator.all %}
+                    <li>
+                        <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+
                 {% if user.is_authenticated %}
                     <a class="btn btn-danger" href="{% url 'entities:person_delete' pk=object.id %}">delete</a>
                 {% endif %}

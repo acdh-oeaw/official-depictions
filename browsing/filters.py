@@ -1,6 +1,7 @@
 import django_filters
 from dal import autocomplete
 from entities.models import Place, AlternativeName, Institution, Person
+from cards.models import CardCollection, Card
 
 django_filters.filters.LOOKUP_TYPES = [
     ('', '---------'),
@@ -17,6 +18,38 @@ django_filters.filters.LOOKUP_TYPES = [
     ('icontains', 'Contains (case insensitive)'),
     ('not_contains', 'Does not contain'),
 ]
+
+
+class CardListFilter(django_filters.FilterSet):
+    title = django_filters.CharFilter(
+        lookup_expr='icontains',
+        help_text=Card._meta.get_field('title').help_text,
+        label=Card._meta.get_field('title').verbose_name
+        )
+    text_front = django_filters.CharFilter(
+        lookup_expr='icontains',
+        help_text=Card._meta.get_field('text_front').help_text,
+        label=Card._meta.get_field('text_front').verbose_name
+        )
+    text_back = django_filters.CharFilter(
+        lookup_expr='icontains',
+        help_text=Card._meta.get_field('text_back').help_text,
+        label=Card._meta.get_field('text_back').verbose_name
+        )
+    card_collection = django_filters.ModelMultipleChoiceFilter(
+        queryset=CardCollection.objects.all(),
+        help_text=Card._meta.get_field('card_collection').help_text,
+        label=Card._meta.get_field('card_collection').verbose_name
+        )
+    artist = django_filters.ModelMultipleChoiceFilter(
+        queryset=Person.objects.all(),
+        help_text=Card._meta.get_field('artist').help_text,
+        label=Card._meta.get_field('artist').verbose_name
+        )
+
+    class Meta:
+        model = Card
+        fields = "__all__"
 
 
 class PersonListFilter(django_filters.FilterSet):

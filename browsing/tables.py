@@ -1,6 +1,22 @@
 import django_tables2 as tables
 from django_tables2.utils import A
 from entities.models import *
+from cards.models import Card, CardCollection
+
+
+class CardTable(tables.Table):
+    legacy_id = tables.Column()
+    number = tables.Column()
+    title = tables.LinkColumn(
+        'cards:card_detail',
+        args=[A('pk')], verbose_name='Name'
+    )
+    card_collection = tables.Column()
+
+    class Meta:
+        model = Card
+        sequence = ('legacy_id', 'number', 'title', 'card_collection')
+        attrs = {"class": "table table-responsive table-hover"}
 
 
 class PersonTable(tables.Table):

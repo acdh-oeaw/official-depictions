@@ -27,5 +27,6 @@ urlpatterns = [
     url(r'^datamodel/', include('django_spaghetti.urls', namespace='datamodel')),
     url(r'^entities/', include('entities.urls', namespace='entities')),
     url(r'^bib/', include('bib.urls', namespace='bib')),
+    url(r'^cards/', include('cards.urls', namespace='cards')),
     url(r'^', include('webpage.urls', namespace='webpage')),
 ]

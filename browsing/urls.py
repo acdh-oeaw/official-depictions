@@ -2,6 +2,7 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
+    url(r'cards/$', views.CardListView.as_view(), name='browse_cards'),
     url(r'places/$', views.PlaceListView.as_view(), name='browse_places'),
     url(r'places/(?P<pk>[0-9]+)$', views.PlaceListView.as_view(), name='place_detail'),
     url(r'places-rdf/$', views.PlaceRDFView.as_view(), name='rdf_places'),

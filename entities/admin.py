@@ -1,5 +1,10 @@
 from django.contrib import admin
-from .models import Place, AlternativeName
+from .models import Place, AlternativeName, Person
 
-admin.site.register(Place)
+
+class PersonAdmin(admin.ModelAdmin):
+    list_display = ('written_name', 'name', 'forename')
+
+
+admin.site.register(Person, PersonAdmin)
 admin.site.register(AlternativeName)

@@ -15,6 +15,33 @@ class GenericFilterFormHelper(FormHelper):
         self.add_input(Submit('Filter', 'Search'))
 
 
+class CardFilterFormHelper(FormHelper):
+    def __init__(self, *args, **kwargs):
+        super(CardFilterFormHelper, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.form_class = 'genericFilterForm'
+        self.form_method = 'GET'
+        self.helper.form_tag = False
+        self.add_input(Submit('Filter', 'Search'))
+        self.layout = Layout(
+            Accordion(
+                AccordionGroup(
+                    'Basic search options',
+                    'title',
+                    'artist',
+                    'card_collection',
+                    css_id="basic_search_fields"
+                ),
+                AccordionGroup(
+                    'Advanced search',
+                    'text_front',
+                    'text_back',
+                    css_id="more"
+                    ),
+                )
+            )
+
+
 class PersonFilterFormHelper(FormHelper):
     def __init__(self, *args, **kwargs):
         super(PersonFilterFormHelper, self).__init__(*args, **kwargs)
