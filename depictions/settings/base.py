@@ -49,11 +49,6 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10
 }
 
-SPAGHETTI_SAUCE = {
-    'apps': ['vocabs', 'entities', 'bib', 'cards', 'images'],
-    'show_fields': False,
-    'exclude': {'auth': ['user']}
-}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
