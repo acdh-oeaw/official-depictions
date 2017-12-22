@@ -3,6 +3,7 @@
 {% block Title %}card{% endblock %}
 
 {% block scriptHeader %}
+<script src="{% static 'images/openseadragon/openseadragon.min.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -39,105 +40,153 @@
             </div>
         </div>
         <div class="panel-body">
-            <table class="table table-bordered table-hover">
-                <tr>
-                    <th>
-                        Bildquelle
-                    </th>
-                    <td>
-                        {{ object.title }}
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        Lfd. Nr.
-                    </th>
-                    <td>
-                        {{ object.legacy_id }}
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        Nr (Serie)
-                    </th>
-                    <td>
-                        {{ object.number }}
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        Serie
-                    </th>
-                    <td>
-                        <a href="{{ object.card_collection.get_absolute_url }}">
-                            {{ object.card_collection }}
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        Text Bildseite (Zitat)
-                    </th>
-                    <td>
-                        {{ object.text_front }}
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        Text Adressseite (Zitat)
-                    </th>
-                    <td>
-                        {{ object.text_back }}
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        Künstler
-                    </th>
-                    <td>
-                        {% for x in object.artist.all %}
-                            <a href="{{ x.get_absolute_url }}">{{ x }}</a><br/>
-                        {% endfor %}
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        Ausgabedatum
-                    </th>
-                    <td>
-                        {{ object.published_written }}
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        gelaufen / Datum
-                    </th>
-                    <td>
-                        {{ object.run_written }}
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        Orte
-                    </th>
-                    <td>
-                        {% for x in object.mentioned_place.all %}
-                            <a href="{{ x.get_absolute_url }}">{{ x }}</a>
-                        {% endfor %}
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        Bildmotiv
-                    </th>
-                    <td>
-                        {% for x in object.bild_motiv.all %}
-                            <a href="{{ x.get_absolute_url }}">{{ x }}</a>
-                        {% endfor %}
-                    </td>
-                </tr>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">{{ object }} Front</div>
+                        <div class="panel-body">
+                            <div class="btn-group">
+                                <button type="button" class="btn " id="full-page_front"><i class="fa fa-arrows-alt" aria-hidden="true"></i></button>
+                            </div>
+                            <div id="openseadragon_front" style="width: 100%; height: 400px"></div>
+                            <a href="{{ object.scan_front.fetch_binary }}">
+                                <i class="fa fa-download" aria-hidden="true" title="download as jpeg"></i>
+                            </a>
+                            <script type="text/javascript">
+                                var viewer = OpenSeadragon({
+                                    id: "openseadragon_front",
+                                    tileSources: "{{ object.scan_front }}",
+                                    fullPageButton: "full-page_front",
+                                });
+                            </script>
+                        </div>
+                        <div class="panel-footer">{{ object.text_front }}</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">{{ object }} Back</div>
+                        <div class="panel-body">
+                            <div class="btn-group">
+                                <button type="button" class="btn " id="full-page_back"><i class="fa fa-arrows-alt" aria-hidden="true"></i></button>
+                            </div>
+                            <div id="openseadragon_back" style="width: 100%; height: 400px"></div>
+                            <a href="{{ object.scan_back.fetch_binary }}">
+                                <i class="fa fa-download" aria-hidden="true" title="download as jpeg"></i>
+                            </a>
+                            <script type="text/javascript">
+                                var viewer = OpenSeadragon({
+                                    id: "openseadragon_back",
+                                    tileSources: "{{ object.scan_back}}",
+                                    fullPageButton: "full-page_back",
+                                });
+                            </script>
+                        </div>
+                        <div class="panel-footer">{{ object.text_back }}</div>
+                    </div>
+                </div>
+            </div>
+                    <table class="table table-bordered table-hover">
+                        <tr>
+                            <th>
+                                Bildquelle
+                            </th>
+                            <td>
+                                {{ object.title }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Lfd. Nr.
+                            </th>
+                            <td>
+                                {{ object.legacy_id }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Nr (Serie)
+                            </th>
+                            <td>
+                                {{ object.number }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Serie
+                            </th>
+                            <td>
+                                <a href="{{ object.card_collection.get_absolute_url }}">
+                                    {{ object.card_collection }}
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Text Bildseite (Zitat)
+                            </th>
+                            <td>
+                                {{ object.text_front }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Text Adressseite (Zitat)
+                            </th>
+                            <td>
+                                {{ object.text_back }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Künstler
+                            </th>
+                            <td>
+                                {% for x in object.artist.all %}
+                                    <a href="{{ x.get_absolute_url }}">{{ x }}</a><br/>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Ausgabedatum
+                            </th>
+                            <td>
+                                {{ object.published_written }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                gelaufen / Datum
+                            </th>
+                            <td>
+                                {{ object.run_written }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Orte
+                            </th>
+                            <td>
+                                {% for x in object.mentioned_place.all %}
+                                    <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Bildmotiv
+                            </th>
+                            <td>
+                                {% for x in object.bild_motiv.all %}
+                                    <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
 
-            </table>
         </div>
     </div>
 </div>
