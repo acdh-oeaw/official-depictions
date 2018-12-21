@@ -14,7 +14,7 @@ PROJECT_METADATA = {
     'purpose_en': 'The purpose of the project "Offical Depictions"\
     is the publication of data about postcards.',
     'version': '2.0.0',
-    'matomo_id': '54',
+    'matomo_id': '114',
     'matomo_url': '//matomo.acdh.oeaw.ac.at/',
     'imprint': '/imprint',
     'social_media': [

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'entities',
     'stats',
     'images',
+    'cards',
 ]
 
 CRISPY_TEMPLATE_PACK = "bootstrap3"
