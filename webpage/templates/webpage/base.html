@@ -91,6 +91,13 @@
                                             <a class="dropdown-item" href="{{ x.link}}">{{ x.name }}</a>
 
                                     {% endfor %}
+                                    {% if user.is_authenticated %}
+                                        <div class="dropdown-divider"></div>
+                                        {% nav_menu app='images' as images %}
+                                        {% for x in images %}
+                                            <a class="dropdown-item"  href="{{ x.link}}">{{ x.name }}</a>
+                                        {% endfor %}
+                                    {% endif %}
 
                                     {% if user.is_authenticated %}
                                         <div class="dropdown-divider"></div>

@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'vocabs',
     'entities',
     'stats',
+    'images',
 ]
 
 CRISPY_TEMPLATE_PACK = "bootstrap3"
