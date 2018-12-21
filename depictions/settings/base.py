@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'django_filters',
     'django_tables2',
+    'django_extensions',
     'rest_framework',
     'leaflet',
     'idprovider',
@@ -42,7 +43,7 @@ INSTALLED_APPS = [
     'cards',
 ]
 
-CRISPY_TEMPLATE_PACK = "bootstrap3"
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticatedOrReadOnly',),
