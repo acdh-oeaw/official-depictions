@@ -4,6 +4,15 @@ from entities.models import *
 from . models import *
 
 
+class CardCollectionTable(tables.Table):
+    id = tables.LinkColumn(verbose_name='ID')
+
+    class Meta:
+        model = CardCollection
+        sequence = ('id', )
+        attrs = {"class": "table table-responsive table-hover"}
+
+
 class CardTable(tables.Table):
     id = tables.LinkColumn(verbose_name='ID')
 

@@ -28,4 +28,28 @@ urlpatterns = [
         r'^card/delete/(?P<pk>[0-9]+)$',
         views.CardDelete.as_view(),
         name='card_delete'),
+    url(
+        r'^cardcollection/$',
+        views.CardCollectionListView.as_view(),
+        name='cardcollection_browse'
+    ),
+    url(
+        r'^cardcollection/detail/(?P<pk>[0-9]+)$',
+        views.CardCollectionDetailView.as_view(),
+        name='cardcollection_detail'
+    ),
+    url(
+        r'^cardcollection/create/$',
+        views.CardCollectionCreate.as_view(),
+        name='cardcollection_create'
+    ),
+    url(
+        r'^cardcollection/edit/(?P<pk>[0-9]+)$',
+        views.CardCollectionUpdate.as_view(),
+        name='cardcollection_edit'
+    ),
+    url(
+        r'^cardcollection/delete/(?P<pk>[0-9]+)$',
+        views.CardCollectionDelete.as_view(),
+        name='cardcollection_delete'),
 ]
