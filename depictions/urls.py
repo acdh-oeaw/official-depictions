@@ -1,32 +1,44 @@
-from django.conf.urls import url, include
+from django.conf.urls import url, include, handler404
 from django.contrib import admin
+from django.conf import settings
 from rest_framework import routers
 from entities.apis_views import PlaceViewSet, GeoJsonViewSet
-from bib.api_views import BookViewSet
-
 from vocabs import api_views
+
+if 'bib' in settings.INSTALLED_APPS:
+    from bib.api_views import ZotItemViewSet
 
 router = routers.DefaultRouter()
 router.register(r'geojson', GeoJsonViewSet, base_name='places')
+router.register(r'metadata', api_views.MetadataViewSet)
 router.register(r'skoslabels', api_views.SkosLabelViewSet)
 router.register(r'skosnamespaces', api_views.SkosNamespaceViewSet)
 router.register(r'skosconceptschemes', api_views.SkosConceptSchemeViewSet)
+router.register(r'skoscollections', api_views.SkosCollectionViewSet)
 router.register(r'skosconcepts', api_views.SkosConceptViewSet)
 router.register(r'places', PlaceViewSet)
-router.register(r'Book', BookViewSet)
+if 'bib' in settings.INSTALLED_APPS:
+    router.register(r'zotitems', ZotItemViewSet)
 
 urlpatterns = [
     url(r'^api/', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^admin/', admin.site.urls),
-    url(r'^arche/', include('arche.urls', namespace='arche')),
-    url(r'^browsing/', include('browsing.urls', namespace='browsing')),
-    url(r'^sparql/', include('sparql.urls', namespace='sparql')),
     url(r'^vocabs/', include('vocabs.urls', namespace='vocabs')),
     url(r'^vocabs-ac/', include('vocabs.dal_urls', namespace='vocabs-ac')),
+    url(r'^entities-ac/', include('entities.dal_urls', namespace='entities-ac')),
     url(r'^entities/', include('entities.urls', namespace='entities')),
-    url(r'^bib/', include('bib.urls', namespace='bib')),
-    url(r'^cards/', include('cards.urls', namespace='cards')),
-    url(r'^images/', include('images.urls', namespace='images')),
     url(r'^', include('webpage.urls', namespace='webpage')),
 ]
+
+if 'bib' in settings.INSTALLED_APPS:
+    urlpatterns.append(
+        url(r'^bib/', include('bib.urls', namespace='bib')),
+    )
+
+if 'sparql' in settings.INSTALLED_APPS:
+    urlpatterns.append(
+        url(r'^sparql/', include('sparql.urls', namespace='sparql')),
+    )
+
+handler404 = 'webpage.views.handler404'

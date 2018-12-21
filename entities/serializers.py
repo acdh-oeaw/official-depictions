@@ -1,6 +1,6 @@
 import json
 from rest_framework import serializers
-from .models import Place, AlternativeName
+from .models import Place
 
 
 class GeoJsonSerializer(serializers.BaseSerializer):
@@ -23,13 +23,6 @@ class GeoJsonSerializer(serializers.BaseSerializer):
             return None
 
 
-class AlternativeNameSerializer(serializers.HyperlinkedModelSerializer):
-
-    class Meta:
-        model = AlternativeName
-        fields = "__all__"
-
-
 class PlaceHelperSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
@@ -38,7 +31,6 @@ class PlaceHelperSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class PlaceSerializer(serializers.HyperlinkedModelSerializer):
-    alternative_name = AlternativeNameSerializer(many=True)
     part_of = PlaceHelperSerializer(many=False)
 
     class Meta:

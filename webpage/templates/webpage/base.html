@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>{% block Title %} {% projects_metadata 'title' %}{% endblock %}</title>
+    <title>{% block title %} {% projects_metadata 'title' %}{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% block metaDescription %}
         <meta name="description" content="{{ metadata.description }}">
@@ -19,232 +19,204 @@
         <link rel="mask-icon" href="{% static 'webpage/img/favicon/safari-pinned-tab.svg' %}" color="#00aba9"/>
         <meta name="theme-color" content="#ffffff"/>
     <!--favicons end -->
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="{% static 'webpage/libraries/bootstrap337/css/bootstrap.min.css' %}" />
-    <!-- custom css -->
-    <link rel="stylesheet" href="{% static 'webpage/css/style.css' %}" />
-    <link href="https://fonts.googleapis.com/css?family=Libre+Franklin:400,500" rel="stylesheet">
-    <!-- custom less -->
-    <link rel="stylesheet/less" type="text/css" href="{% static 'webpage/css/style.less' %}" />
-    <!--scroll to top CSS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Libre+Franklin:400,500" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'webpage/css/fundament.css' %}" rel="stylesheet"/>
+    <!-- <link rel="stylesheet" href="{% static 'webpage/css/fundament_new.css' %}" rel="stylesheet"/> -->
+    <link rel="stylesheet" href="{% static 'webpage/css/style.css' %}" rel="stylesheet"/>
     <link rel="stylesheet" href="{% static 'webpage/libraries/scroll-to-top/css/ap-scroll-top.min.css'%}" />
-    <!-- LESS -->
-    <script type="text/javascript" src="{% static 'webpage/libraries/less/less.min.js' %}"></script>
-    <!-- jQuery -->
-    <script type="text/javascript" src="{% static 'webpage/libraries/jquery/jquery.js' %}"></script>
-    <!--scroll to top -->
-    <script src="{% static 'webpage/libraries/scroll-to-top/js/ap-scroll-top.min.js'%}"></script>
     <!-- Begin Cookie Consent plugin by Silktide - http://silktide.com/cookieconsent -->
     <script type="text/javascript">
         window.cookieconsent_options = {
             "message":"This website uses cookies to ensure you get the best experience on our website",
             "dismiss":"Got it!",
             "learnMore":"More info",
-            "link":"{% url 'webpage:staticpage' template='imprint' %}",
+            "link":"{% projects_metadata 'imprint' %}",
             "theme":"dark-bottom"};
     </script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.9/cookieconsent.min.js"></script>
     <!-- End Cookie Consent plugin -->
-    <!-- cool-share plugin http://tutorialzine.com/2014/08/cool-share-jquery-plugin/ -->
-    <link rel="stylesheet" href="{% static 'webpage/libraries/cool-share/plugin.css' %}" />
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" />
-    <script src="{% static 'webpage/libraries/cool-share/plugin.js' %}"></script>
-    <!-- End fo cool-share -->
-    <!-- Piwik -->
-        <script type="text/javascript">
+    <!-- Matomo -->
+      <script type="text/javascript">
         var _paq = _paq || [];
-        _paq.push(["setDomains", ["*.official-depictions.acdh.oeaw.ac.at/","*.official-depictions.eos.arz.oeaw.ac.at"]]);
+        /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
         _paq.push(['trackPageView']);
         _paq.push(['enableLinkTracking']);
         (function() {
-          var u="//piwik.apollo.arz.oeaw.ac.at/";
+          var u="{% projects_metadata 'matomo_url' %}";
           _paq.push(['setTrackerUrl', u+'piwik.php']);
-          _paq.push(['setSiteId', '54']);
+          _paq.push(['setSiteId', '{% projects_metadata "matomo_id" %}']);
           var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
           g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
         })();
-        </script>
-        <noscript>
-            <p>
-                <img src="//piwik.apollo.arz.oeaw.ac.at/piwik.php?idsite=54" style="border:0;" alt="" />
-            </p>
-        </noscript>
-<!-- End Piwik Code -->
+      </script>
+    <!-- End Matomo Code -->
     {% block scriptHeader %}
     {% endblock %}
 </head>
-<body role="document">
-<header>
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation!</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+<body role="document" class="contained fixed-nav">
+    <header>
+        <nav class="navbar navbar-expand-md navbar-light fixed-top bg-white box-shadow">
+            <a class="navbar-brand" href="/">
+                {% projects_metadata 'title' %}
+            </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
                 </button>
-            </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                 <ul class="nav navbar-nav">
-                 <li><a href="/">Home</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{% url 'webpage:staticpage' template='about' %}">About project</a></li>
-                            <li><a href="{% url 'webpage:staticpage' template='imprint' %}">Impressum / Imprint</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        {% if user.is_authenticated %}
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                Curate and Browse the Data <span class="caret"></span>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About
+                                <span class="caret"/>
                             </a>
-                        {% else %}
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                Browse the Data <span class="caret"></span>
-                            </a>
-                        {% endif %}
-                        <ul class="dropdown-menu">
-                            {% nav_menu app='cards' as links %}
-                            {% for x in links %}
-                                <li>
-                                    <a href="{{ x.link}}">{{ x.name }}</a>
-                                </li>
-                            {% endfor %}
-                            <li role="separator" class="divider"></li>
-                            {% nav_menu app='entities' as links %}
-                            {% for x in links %}
-                                <li>
-                                    <a href="{{ x.link}}">{{ x.name }}</a>
-                                </li>
-                            {% endfor %}
-                            {% if user.is_authenticated %}
-                                <li role="separator" class="divider"></li>
-                                {% nav_menu app='images' as images %}
-                                {% for x in images %}
-                                    <li>
-                                        <a href="{{ x.link}}">{{ x.name }}</a>
-                                    </li>
-                                {% endfor %}
-                                    <li role="separator" class="divider"></li>
-                            {% endif %}
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{% url 'webpage:staticpage' template='about' %}">About project</a>
+                                    <a class="dropdown-item" href="{% url 'webpage:staticpage' template='imprint' %}">Imprint | Impressum</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                {% if user.is_authenticated %}
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Curate and Browse the Data
+                                <span class="caret"/>
+                                </a>
+                                {% else %}
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Browse the Data
+                                <span class="caret"/>
+                                </a>
+                                {% endif %}
+                                <div class="dropdown-menu">
+                                    {% nav_menu app='entities' as links %}
+                                    {% for x in links %}
 
-                            {% if user.is_authenticated %}
-                                <li role="separator" class="divider"></li>
-                                {% nav_menu app='arche' as links %}
-                                {% for x in links %}
-                                    <li>
-                                        <a href="{{ x.link}}">{{ x.name }}</a>
-                                    </li>
-                                {% endfor %}
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="{% url 'bib:synczotero' %}">Import new Items from Zotero</a></li>
-                            {% endif %}
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                           Retrieve the Data <span class="caret"></span>
+                                            <a class="dropdown-item" href="{{ x.link}}">{{ x.name }}</a>
+
+                                    {% endfor %}
+
+                                    {% if user.is_authenticated %}
+                                        <div class="dropdown-divider"></div>
+                                        {% nav_menu app='arche' as links %}
+                                        {% for x in links %}
+
+                                                <a class="dropdown-item" href="{{ x.link}}">{{ x.name }}</a>
+
+                                        {% endfor %}
+                                        {% if 'bib' in apps %}
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="{% url 'bib:synczotero' %}">Import new Items from Zotero</a>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                            </li>
+                    {% if 'sparql' in APPS %}
+                        <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Retrieve the Data
+                        <span class="caret"/>
                         </a>
-                        <ul class="dropdown-menu">
-                        <li><a href="{% url 'sparql:query' %}">SPARQL</a></li></ul>
-                    </li>
+                            <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{% url 'sparql:query' %}">SPARQL</a>
+                            </div>
+                        </li>
+                    {% endif %}
+                    {% if 'vocabs' in APPS %}
+                        {% if user.is_authenticated %}
+                            <li class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Vocabs Curation
+                            <span class="caret"/>
+                            </a>
+                                <div class="dropdown-menu">
+                                    {% nav_menu app='vocabs' as links %}
+                                    {% for x in links %}
+                                        <a class="dropdown-item" href="{{ x.link }}">{{ x.name }}</a>
+                                    {% endfor %}
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{% url 'api-root' %}">Export SKOS (API)</a>
+                                </div>
+                            </li>
+                        {% endif %}
+                    {% endif %}
                     {% if user.is_authenticated %}
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            Vocabs Curation <span class="caret"></span>
+                    <li class="nav-item dropdown ml-auto">
+                        <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            {{ user.get_username }}
                         </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{% url 'vocabs:skosconceptscheme_list' %}">Concept Schemes</a></li>
-                            <li><a href="{% url 'vocabs:browse_vocabs' %}">Concepts</a></li>
-                            <li><a href="{% url 'vocabs:skoslabel_list' %}">Labels</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="{% url 'vocabs:skos_import' %}">Import SKOS (RDF/XML)</a></li>
-                            <li><a href="{% url 'vocabs:skos_csv_import' %}">Import Vocabs from CSV</a></li>
-                            <li><a href="{% url 'api-root' %}">Export SKOS (API)</a></li>
-                        </ul>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="nav-link" href="{% url 'webpage:user_logout' %}">Log-Out</a>
+                        </div>
+                    </li>
+                    {% else %}
+                    <li class="nav-item dropdown ml-auto">
+                        <a class="nav-link" href="{% url 'webpage:user_login' %}">
+                        <i class="fas fa-sign-in-alt"></i>
+                        </a>
                     </li>
                     {% endif %}
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown">
-                        {% if user.is_authenticated %}
-                            <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                                {{ user.get_username }}
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="{% url 'webpage:user_logout' %}">Log-Out</a></li>
-                            </ul>
-                        {% else %}
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="{% url 'webpage:user_login' %}">Log-In</a></li>
-                            </ul>
-                        {% endif %}
-                    </li>
-                </ul>
+                <div class="navbar-icons">
+                    <a href="{% projects_metadata 'github' %}" target="_blank" rel="noopener">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <section class="main-content">
+        {% if DEV_VERSION %}
+        <div class="alert alert-danger" role="alert">
+            This is a the DEVELOPMENT instance. Click <a href="#">here</a> for the Production version
+        </div>
+        {% endif %}
+        <div id="content">
+            {% block content %}{% endblock %}
+        </div>
+    </section>
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-wrapper">
+                <div class="footer-sep">
+                    <i class="far fa-comment"></i> CONTACT
+                </div>
+                <div class="row">
+                    <div class="col-md-2 pl-0">
+                        <a href="https://www.oeaw.ac.at/acdh/acdh-home/" target="_blank" rel="noopener" aria-label="ACDH">
+                            <img src="{% static 'webpage/img/acdh_logo.png' %}" alt="ACDH" title="Austrian Centre for Digital Humanities"/>
+                        </a>
+                    </div>
+                    <div class="col-md-2 ml-auto">
+                        <img src="{% static 'webpage/img/partner_logo.png' %}" alt="Partner Logo" title="Partner Logo"/>
+                    </div>
+                </div>
             </div>
         </div>
-    </nav>
-</header>
-<section class="main-content">
-    <div id="content" class="container">{% block content %}{% endblock %}</div>
-</section>
-<div style="text-align:center">
-    <span class="socialShare"><!-- The share buttons will be inserted here --></span>
-</div>
-<footer>
-    <div class="container">
-        <div class="row text-center">
-            <div class="col-sm-6">
-                <a href="https://www.oeaw.ac.at/acdh/" class="navlink" target="_blank">
-                    <img src="{% static 'webpage/img/acdh_logo_black_03.png' %}" id="acdh-logo" alt="ACDH" title="Austrian Centre for Digital Humanities"/>
-                </a>
             </div>
-            <div class="col-sm-6">
-                <a href="{% projects_metadata 'github' %}" class="navlink" target="_blank">
-                    <img src="{% static 'webpage/img/GitHub-Mark-64px.png' %}" id="github-logo" alt="{{ metadata.github }}" title="Github source code"/>
-                </a>
+            <div class="footer-imprint-bar">
+                {% social_media %}
+                <a href="{% projects_metadata 'imprint' %}">Impressum/Imprint</a>
+
+                {% if user.is_authenticated %}
+                    {% if DB_NAME %}
+                        <div class="footer-imprint-bar">
+                            <small>{{ DB_NAME }}</small>
+                        </div>
+                    {% endif %}
+                {% endif %}
             </div>
-        </div>
-        <div style="text-align:right">
-            <small>Version: {% projects_metadata 'version' %}</small>
-        </div>
-    </div>
-</footer>
-{% block scripts %}
-<script type="text/javascript" src="{% static 'webpage/libraries/bootstrap337/js/bootstrap.min.js' %}"></script>
-<!-- cool share -->
-<script type="text/javascript">
-    $(function (){
-        var options = {
-            twitter: {
-            text: '',
-            via: ''
-        },
-        facebook : true,
-        googlePlus : true
-        };
-        $('.socialShare').shareButtons(options);
-    });
-</script>
-<!-- scroll-up-bottom -->
-<script type="text/javascript">
-    $(document).ready(function() {
-        $.apScrollTop({'onInit': function(evt) {console.log('apScrollTop: init');}});
-    });
-</script>
-{% endblock %}
-{% block scripts2 %}
-{% endblock scripts2 %}
-<noscript>
-    <img src="//piwik.apollo.arz.oeaw.ac.at/piwik.php?idsite=54" style="border:0;" alt=""/>
-</noscript>
-</body>
-</html>
+        </footer>
+        {% block scripts %}
+        <script src="https://fundament.acdh.oeaw.ac.at/dist/fundament/vendor/js/fontawesome-all.min.js"></script>
+        <script src="https://fundament.acdh.oeaw.ac.at/dist/fundament/js/fundament.min.js"></script>
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css" />
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+        <script src="{% static 'webpage/libraries/scroll-to-top/js/ap-scroll-top.min.js'%}"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $.apScrollTop({'onInit': function(evt) {console.log('apScrollTop: init');}});
+            });
+        </script>
+        {% endblock %}
+        {% block scripts2 %}
+        {% endblock scripts2 %}
+        <noscript>
+            <img src="//piwik.apollo.arz.oeaw.ac.at/piwik.php?idsite=48" style="border:0;" alt=""/>
+        </noscript>
+        </body>
+        </html>

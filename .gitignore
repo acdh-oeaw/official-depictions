@@ -34,4 +34,6 @@ dev_secret.py
 /docs/_*/*
 /vocabs/data/spreadsheets/cv_burial.xlsx
 /Untitled.ipynb
-media
+/arche/data/fileType.json
+/arche/data/fileList.json
+data

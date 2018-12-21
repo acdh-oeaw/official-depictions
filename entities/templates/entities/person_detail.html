@@ -1,0 +1,206 @@
+{% extends "browsing/generic_detail.html" %}
+{% load staticfiles %}
+{% load webpage_extras %}
+{% block title %}{{ object }}{% endblock %}
+{% block custom %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Kurzbio und Funktionen</h3>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered table-hover">
+                        <tr>
+                            <th>
+                                {% get_verbose_name person "forename" %}
+                            </th>
+                            <td>
+                                {{ object.forename }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {% get_verbose_name person "name" %}
+                            </th>
+                            <td>
+                                {{ object.name }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {% get_verbose_name person "acad_title" %}
+                            </th>
+                            <td>
+                                {{ object.acad_title }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {% get_verbose_name person "alt_names" %}
+                            </th>
+                            <td>
+                                {{ object.alt_names }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {% get_verbose_name person "date_of_birth" %}
+                            </th>
+                            <td>
+                                {% if object.date_of_birth_written %}
+                                    {{ object.date_of_birth_written }}
+                                {% elif object.date_of_birth %}
+                                    {{ object.date_of_birth }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {% get_verbose_name person "place_of_birth" %}
+                            </th>
+                            <td>
+                                <a href="{{ object.place_of_birth.get_absolute_url }}">
+                                    {{ object.place_of_birth }}
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {% get_verbose_name person "date_of_death" %}
+                            </th>
+                            <td>
+                                {% if object.date_of_death_written %}
+                                    {{ object.date_of_death_written }}
+                                {% elif object.date_of_death %}
+                                    {{ object.date_of_death }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {% get_verbose_name person "place_of_death" %}
+                            </th>
+                            <td>
+                                <a href="{{ object.place_of_death.get_absolute_url }}">
+                                    {{ object.place_of_death }}
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Kurzbio und Funktionen</h3>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered table-hover">
+                        <tr>
+                            <th>
+                                {% get_verbose_name person "belongs_to_party" %}
+                            </th>
+                            <td>
+                                <a href="{{ object.belongs_to_party.get_absolute_url }}">{{ object.belongs_to_party }}</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {% get_verbose_name person "biography" %}
+                            </th>
+                            <td>
+                                {{ object.biography }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {% get_verbose_name person "funktion" %}
+                            </th>
+                            <td>
+                                {{ object.funktion }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {% get_verbose_name person "quelle" %}
+                            </th>
+                            <td>
+                                {{ object.quelle }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {% get_verbose_name person "authority_url" %}
+                            </th>
+                            <td>
+                                <a href="{{ object.authority_url }}">
+                                    {{ object.authority_url }}
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Beziehungen</h3>
+        </div>
+        <div class="card-body">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Zu Dokumenten</h3>
+                </div>
+                <div class="card-body">
+                    <legend>
+                        Erzeuger von
+                    </legend>
+                    <ul>
+                        {% for x in object.created_by_person.all %}
+                            <li>
+                                <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <legend>
+                        Erwähnt in
+                    </legend>
+                    <ul>
+                        {% for x in object.pers_mentioned_in_res.all %}
+                            <li>
+                                <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Zu Institutionen</h3>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        {% for x in object.belongs_to_institution.all %}
+                            <li>
+                                <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Zu Orten</h3>
+                </div>
+                <div class="card-body">
+                    <div id="map">
+                        platz für eine Karte
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock custom %}
