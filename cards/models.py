@@ -37,7 +37,7 @@ class CardCollection(IdProvider):
         next = self.__class__.objects.filter(id__gt=self.id)
         if next:
             return reverse(
-                'card:cardcollection_detail',
+                'cards:cardcollection_detail',
                 kwargs={'pk': next.first().id}
             )
         return False
@@ -46,7 +46,7 @@ class CardCollection(IdProvider):
         prev = self.__class__.objects.filter(id__lt=self.id).order_by('-id')
         if prev:
             return reverse(
-                'card:cardcollection_detail',
+                'cards:cardcollection_detail',
                 kwargs={'pk': prev.first().id}
             )
         return False
@@ -69,6 +69,7 @@ class Card(IdProvider):
     img_back = models.CharField(
         blank=True, verbose_name="Rückseite", max_length=250
     )
+    gelaufen = models.CharField(max_length=250, blank=True, verbose_name="gelaufen")
     note = models.TextField(
         blank=True, null=True, verbose_name="Formale Anmerkungen"
     )
@@ -99,6 +100,12 @@ class Card(IdProvider):
         auto_now=False, auto_now_add=False, blank=True, null=True,
         verbose_name="Nicht nach normalisiert",
         help_text="YYYY-MM-DD"
+    )
+    bild_technik = models.ManyToManyField(
+        SkosConcept, blank=True,
+        help_text="Bildtechnik",
+        verbose_name="Bildtechnik",
+        related_name="bildtechnik_of"
     )
     subject_norm = models.ManyToManyField(
         SkosConcept, blank=True,
@@ -162,7 +169,7 @@ class Card(IdProvider):
         next = self.__class__.objects.filter(id__gt=self.id)
         if next:
             return reverse(
-                'card:card_detail',
+                'cards:card_detail',
                 kwargs={'pk': next.first().id}
             )
         return False
@@ -171,7 +178,7 @@ class Card(IdProvider):
         prev = self.__class__.objects.filter(id__lt=self.id).order_by('-id')
         if prev:
             return reverse(
-                'card:card_detail',
+                'cards:card_detail',
                 kwargs={'pk': prev.first().id}
             )
         return False

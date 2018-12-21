@@ -22,8 +22,7 @@ class CardCollectionListView(GenericListView):
     formhelper_class = CardCollectionFilterFormHelper
     table_class = CardCollectionTable
     init_columns = [
-        'id',
-        'title',
+        'abbreviation',
         'signature',
     ]
 
@@ -63,16 +62,14 @@ class CardCollectionDelete(DeleteView):
         return super(CardCollectionDelete, self).dispatch(*args, **kwargs)
 
 
-
 class CardListView(GenericListView):
     model = Card
     filter_class = CardListFilter
     formhelper_class = CardFilterFormHelper
     table_class = CardTable
     init_columns = [
-        'id',
-        'title',
-        'signature',
+        'legacy_id',
+        'card_collection',
     ]
 
 
