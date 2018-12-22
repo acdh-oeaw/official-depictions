@@ -9,6 +9,7 @@
     {% endif %}
 {% endblock scriptHeader %}
 {% block custom %}
+{% if card.public or user.is_authenticated %}
     <div class="row">
         <div class="col-md-6">
             <div class="card">
@@ -209,5 +210,7 @@
                 </table>
             </div>
     {% endif %}
-
+{% else %}
+    <h3>Diese Karte wird derzeit überarbeitet</h3>
+{% endif %}
 {% endblock %}

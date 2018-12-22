@@ -9,8 +9,24 @@ from vocabs.models import SkosConcept
 class CardCollection(IdProvider):
     """ Describebes a series of cards """
 
-    name = models.CharField(max_length=250, blank=True)
-    abbreviation = models.CharField(max_length=25, blank=True)
+    name = models.CharField(
+        max_length=250, blank=True,
+        verbose_name="Name der Sammlung"
+    )
+    abbreviation = models.CharField(
+        max_length=25, blank=True,
+        verbose_name="Sammlungskürzel"
+    )
+    description = models.TextField(
+        blank=True, verbose_name="Beschreibung"
+    )
+    part_of = models.ForeignKey(
+        'CardCollection',
+        blank=True, null=True, verbose_name="Teilsammlung von",
+        related_name="has_parts",
+        help_text="Ist Teilsammlung von",
+        on_delete=models.SET_NULL
+    )
 
     def __str__(self):
         return "{}".format(self.abbreviation)
@@ -53,9 +69,15 @@ class CardCollection(IdProvider):
 
 class Card(IdProvider):
     """This class describes a post-card like entity"""
-    legacy_id = models.IntegerField(blank=True, null=True, verbose_name="Lfd. Nr.")
-    sort_id = models.IntegerField(blank=True, null=True, verbose_name="Chronologie")
-    number = models.CharField(max_length=25, blank=True, verbose_name="Nr (Serie)")
+    legacy_id = models.IntegerField(
+        blank=True, null=True, verbose_name="Lfd. Nr."
+    )
+    sort_id = models.IntegerField(
+        blank=True, null=True, verbose_name="Chronologie"
+    )
+    number = models.CharField(
+        max_length=25, blank=True, verbose_name="Nr (Serie)"
+    )
     card_collection = models.ForeignKey(
         CardCollection, blank=True, null=True, verbose_name="Serie",
         related_name="contain_cards",

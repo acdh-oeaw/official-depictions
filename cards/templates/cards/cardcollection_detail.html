@@ -25,17 +25,80 @@
                         {{ object.abbreviation }}
                     </td>
                 </tr>
+                <tr>
+                    <th>
+                        {% get_verbose_name cardcollection "description" %}
+                    </th>
+                    <td>
+                        {{ object.description }}
+                    </td>
+                </tr>
+                <tr>
+                    {% if object.part_of %}
+                        <th>
+                            {% get_verbose_name cardcollection "part_of" %}
+                        </th>
+                        <td>
+                            <a href="{{ object.part_of.get_absolute_url}}">
+                                {{ object.part_of }}
+                            </a>
+                        </td>
+                    {% endif %}
+                </tr>
+
+                {% if object.has_parts.all %}
+                <tr>
+                    <th>
+                        Teilsammlungen
+                    </th>
+                    <td>
+                        {% for x in object.has_parts.all %}
+                            <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                        {% endfor %}
+                    </td>
+                </tr>
+                {% endif %}
             </table>
         </div>
     </div>
     <div class="card">
         <div class="card-header">
-            <h4 class="card-title">Karten</h4>
+            <h4 class="card-title">{{ object.contain_cards.all|length }} Karten</h4>
         </div>
         <div class="card-body">
             <table class="table table-bordered table-hover">
                 <thead>
+                    <tr>
+                        <th>
+                            Lfd. Nr.
+                        </th>
+                        <th>
+                            Bild Technik
+                        </th>
+                        <th>
+                            Künstler
+                        </th>
+                    </tr>
                 </thead>
+                <tbody>
+                    {% for x in object.contain_cards.all %}
+                        <tr>
+                            <td>
+                                <a href="{{ x.get_absolute_url }}">{{ x }}</a>
+                            </td>
+                            <td>
+                                {% for y in x.bild_technik.all %}
+                                    {{ y }}
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% for y in x.creator_person.all %}
+                                    <a href="{{ y.get_absolute_url }}">{{ y }}</a>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
             </table>
         </div>
     </div>
