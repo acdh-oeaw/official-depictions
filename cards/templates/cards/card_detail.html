@@ -96,11 +96,40 @@
                         </tr>
                         <tr>
                             <th>
+                            {% get_verbose_name card "archiv" %}
+                            <i class="fas fa-info-circle" data-toggle="tooltip" data-html="true" title="{% get_help_text card 'archiv' %}"></i>
+                            </th>
+                            <td>
+                                <a href="{{ object.archiv.get_absolute_url}}">
+                                    {{ object.archiv }}
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                            {% get_verbose_name card "signature" %}
+                            <i class="fas fa-info-circle" data-toggle="tooltip" data-html="true" title="{% get_help_text card 'signature' %}"></i>
+                            </th>
+                            <td>
+                                {{ object.signature }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
                             {% get_verbose_name card "gelaufen" %}
                             <i class="fas fa-info-circle" data-toggle="tooltip" data-html="true" title="{% get_help_text card 'gelaufen' %}"></i>
                             </th>
                             <td>
                                 {{ object.gelaufen }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                            {% get_verbose_name card "written_date" %}
+                            <i class="fas fa-info-circle" data-toggle="tooltip" data-html="true" title="{% get_help_text card 'written_date' %}"></i>
+                            </th>
+                            <td>
+                                {{ object.written_date }}
                             </td>
                         </tr>
                         <tr>
@@ -157,12 +186,16 @@
                         <legend>
                             Anmerkungen, Kommentare
                         </legend>
-                        <p>
-                            {{ object.note }}
-                        </p>
-                        <p>
-                            {{ object.note_content }}
-                        </p>
+                        {% if object.note %}
+                            <p>
+                                <small>{% get_verbose_name card "note" %}: </small> {{ object.note }}
+                            </p>
+                        {% endif %}
+                        {% if object.note_content %}
+                            <p>
+                                <small>{% get_verbose_name card "note_content" %}: </small> {{ object.note_content }}
+                            </p>
+                        {% endif %}
                     {% endif %}
                 </div>
             </div>

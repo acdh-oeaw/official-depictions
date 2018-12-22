@@ -24,7 +24,7 @@ class CardCollectionListView(GenericListView):
     table_class = CardCollectionTable
     init_columns = [
         'abbreviation',
-        'signature',
+        'name',
     ]
 
 
@@ -69,6 +69,7 @@ class CardListView(GenericListView):
     formhelper_class = CardFilterFormHelper
     table_class = CardTable
     init_columns = [
+        'signature',
         'legacy_id',
         'card_collection',
     ]

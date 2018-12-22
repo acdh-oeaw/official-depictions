@@ -171,7 +171,10 @@ class Card(IdProvider):
     public = models.BooleanField(default=False)
 
     def __str__(self):
-        return "{}".format(self.id)
+        if self.signature:
+            return "{}".format(self.signature)
+        else:
+            return "{}".format(self.id)
 
     @classmethod
     def get_listview_url(self):

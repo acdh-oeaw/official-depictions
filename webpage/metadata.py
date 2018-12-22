@@ -2,7 +2,7 @@
 # (by default) in the base.html and index.html
 
 PROJECT_METADATA = {
-    'title': 'Offical Depictions',
+    'title': 'Offizielle Ansichten',
     'author': 'Peter Andorfer',
     'subtitle': 'A digital collection of war-postcards published by the Austrian-Hungarian Empire',
     'description': 'The research project Official Depicitions collects, digitizes, describes,\

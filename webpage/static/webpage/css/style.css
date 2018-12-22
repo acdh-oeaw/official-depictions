@@ -1,14 +1,22 @@
+.reference {
+    cursor: pointer;
+    color: #0c0c0c;
+}
+
+span.data-hr {
+    background-color: #ffff00;
+}
+
 .card {
     overflow: visible;
-    margin-bottom: 20px;
 }
 
 a {
-    color: #88dbdf;
+    color: #bd0000;
 }
-.help-block {
-	font-size: 0.9em;
+
+a:not([href]):not([tabindex]) {
+    color: #bd0000;
+    text-decoration: none;
 }
-.create-label {
-	font-weight: 700;
-}
+
