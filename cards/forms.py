@@ -104,15 +104,8 @@ class CardFilterFormHelper(FormHelper):
         self.layout = Layout(
             Accordion(
                 AccordionGroup(
-                    'Basic search options',
-                    'title',
-                    'res_type',
-                    css_id="basic_search_fields"
-                    ),
-                AccordionGroup(
                     'Inhalt',
                     'subject_norm',
-                    'abstract',
                     css_id="more"
                     ),
                 AccordionGroup(
@@ -144,11 +137,6 @@ class CardFilterFormHelper(FormHelper):
                     'Orte',
                     'mentioned_place',
                     css_id="orte"
-                    ),
-                AccordionGroup(
-                    'Verantwortlich',
-                    'creators',
-                    css_id="Verantwortlich"
                     ),
                 )
             )

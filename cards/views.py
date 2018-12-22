@@ -1,4 +1,5 @@
 import django_tables2 as tables
+from django.conf import settings
 from django_tables2.config import RequestConfig
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -55,7 +56,7 @@ class CardCollectionUpdate(BaseUpdateView):
 class CardCollectionDelete(DeleteView):
     model = CardCollection
     template_name = 'webpage/confirm_delete.html'
-    success_url = reverse_lazy('card:card_browse')
+    success_url = reverse_lazy('cards:card_browse')
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -72,10 +73,31 @@ class CardListView(GenericListView):
         'card_collection',
     ]
 
+    def get_queryset(self, **kwargs):
+        user = self.request.user
+        qs = super(CardListView, self).get_queryset()
+        if user.is_authenticated:
+            pass
+        else:
+            qs = qs.exclude(public=False)
+        self.filter = self.filter_class(self.request.GET, queryset=qs)
+        self.filter.form.helper = self.formhelper_class()
+        return self.filter.qs
+
 
 class CardDetailView(DetailView):
     model = Card
     template_name = 'cards/card_detail.html'
+
+    def get_context_data(self, **kwargs):
+        instance = self.object
+        context = super(CardDetailView, self).get_context_data(**kwargs)
+        context['front'] = getattr(instance, 'img_front', None)
+        context['back'] = getattr(instance, 'img_back', None)
+        context['openseadragon_js'] = getattr(settings, "APIS_OSD_JS", None)
+        context['openseadragon_img'] = getattr(settings, "APIS_OSD_IMG_PREFIX", None)
+        context['iiif_server'] = getattr(settings, "APIS_IIIF_SERVER", None)
+        return context
 
 
 class CardCreate(BaseCreateView):
@@ -101,7 +123,7 @@ class CardUpdate(BaseUpdateView):
 class CardDelete(DeleteView):
     model = Card
     template_name = 'webpage/confirm_delete.html'
-    success_url = reverse_lazy('card:card_browse')
+    success_url = reverse_lazy('cards:card_browse')
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):

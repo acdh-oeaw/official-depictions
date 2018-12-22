@@ -2,226 +2,77 @@
 {% load staticfiles %}
 {% load webpage_extras %}
 {% block title %}{{ object }}{% endblock %}
+{% block scriptHeader %}
+    {{ block.super }}
+    {% if front %}
+        <script src="{{ openseadragon_js }}"></script>
+    {% endif %}
+{% endblock scriptHeader %}
 {% block custom %}
     <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Bilder</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="front-tab" data-toggle="tab" href="#front" role="tab" aria-controls="front" aria-selected="true">Vorderseite</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="back-tab" data-toggle="tab" href="#back" role="tab" aria-controls="back" aria-selected="false">Rückseite</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="front" role="tabpanel" aria-labelledby="front">
+                            {% if front %}
+                                <div id="img_front" style="width: 100%; height: 400px"></div>
+                                <script type="text/javascript">
+                                    var viewer = OpenSeadragon({
+                                        id: "img_front",
+                                        tileSources: "{{iiif_server }}/{{front }}/info.json",
+                                        prefixUrl: "{{ openseadragon_img }}"
+                                    });
+                                </script>
+                            {% else %}
+                            <p>
+                                noch kein Bild zugeordnet
+                            </p>
+                            {% endif %}
+
+                        </div>
+                        <div class="tab-pane fade" id="back" role="tabpanel" aria-labelledby="back">
+                            {% if front %}
+                                <div id="img_back" style="width: 100%; height: 400px"></div>
+                                <script type="text/javascript">
+                                    var viewer = OpenSeadragon({
+                                        id: "img_back",
+                                        tileSources: "{{iiif_server }}/{{ back }}/info.json",
+                                        prefixUrl: "{{ openseadragon_img }}"
+                                    });
+                                </script>
+                            {% else %}
+                                <p>
+                                    noch kein Bild zugeordnet
+                                </p>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Info</h4>
                 </div>
                 <div class="card-body">
-                    <table class="table table-bordered table-hover">
-                        <tr>
-                            <th>
-                                {% get_verbose_name card "title" %}
-                            </th>
-                            <td>
-                                {{ object.title }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                {% get_verbose_name card "signature" %}
-                            </th>
-                            <td>
-                                {{ object.signature }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                {% get_verbose_name card "archiv" %}
-                            </th>
-                            <td>
-                                <a href="{{ object.archiv.get_absolute_url }}">{{ object.archiv }}</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                {% get_verbose_name card "written_date" %}
-                            </th>
-                            <td>
-                                {{ object.written_date }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                {% get_verbose_name card "not_before" %}
-                            </th>
-                            <td>
-                                {{ object.not_before }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                {% get_verbose_name card "not_after" %}
-                            </th>
-                            <td>
-                                {{ object.not_after }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                {% get_verbose_name card "res_type" %}
-                            </th>
-                            <td>
-                                {{ object.res_type }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                {% get_verbose_name card "permalink" %}
-                            </th>
-                            <td>
-                                <a href="{{ object.permalink }}">{{ object.permalink }}</a>
-                            </td>
-                        </tr>
-                        {% if history %}
-                        <tr>
-                            <th>
-                                Curation history
-                            </th>
-                            <td>
-                                {% if history %}
-                                    {% for x in history %}
-                                        <li>
-                                            {{ x.revision.date_created }} changed by {{ x.revision.user }}
-                                        </li>
-                                    {% endfor %}
-                                {% endif %}
-                            </td>
-                        </tr>
-                        {% endif %}
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Inhalt</h3>
-                </div>
-                <div class="card-body">
-                    <table class="table table-bordered table-hover">
-                        <tr>
-                            <th>
-                                {% get_verbose_name card "abstract" %}
-                            </th>
-                            <td>
-                                {{ object.abstract }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                {% get_verbose_name card "notes" %}
-                            </th>
-                            <td>
-                                {{ object.notes }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                {% get_verbose_name card "subject_free" %}
-                            </th>
-                            <td>
-                                {{ object.subject_free }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                {% get_verbose_name card "subject_norm" %}
-                            </th>
-                            <td>
-                                {% for x in object.subject_norm.all %}
-                                    <li>
-                                        <a href="{{ x.get_absolute_url }}">{{ x }}</a>
-                                    </li>
-                                {% endfor %}
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Beziehungen</h3>
-                </div>
-                <div class="card-body">
-                    <table class="table table-bordered table-hover">
-                        <tr>
-                            <th>
-                                {% get_verbose_name card "creator_inst" %}
-                            </th>
-                            <td>
-                                {% for x in object.creator_inst.all %}
-                                    <li>
-                                        <a href="{{ x.get_absolute_url }}" />{{ x }}</a>
-                                    </li>
-                                {% endfor %}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                {% get_verbose_name card "creator_person" %}
-                            </th>
-                            <td>
-                                {% for x in object.creator_person.all %}
-                                    <li>
-                                        <a href="{{ x.get_absolute_url }}" />{{ x }}</a>
-                                    </li>
-                                {% endfor %}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                {% get_verbose_name card "mentioned_person" %}
-                            </th>
-                            <td>
-                                {% for x in object.mentioned_person.all %}
-                                    <li>
-                                        <a href="{{ x.get_absolute_url }}" />{{ x }}</a>
-                                    </li>
-                                {% endfor %}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                {% get_verbose_name card "mentioned_inst" %}
-                            </th>
-                            <td>
-                                {% for x in object.mentioned_inst.all %}
-                                    <li>
-                                        <a href="{{ x.get_absolute_url }}" />{{ x }}</a>
-                                    </li>
-                                {% endfor %}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                {% get_verbose_name card "mentioned_place" %}
-                            </th>
-                            <td>
-                                {% for x in object.mentioned_place.all %}
-                                    <li>
-                                        <a href="{{ x.get_absolute_url }}" />{{ x }}</a>
-                                    </li>
-                                {% endfor %}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                {% get_verbose_name card "rel_res" %}
-                            </th>
-                            <td>
-                                {% for x in object.rel_res.all %}
-                                    <li>
-                                        <a href="{{ x.get_absolute_url }}" />{{ x }}</a>
-                                    </li>
-                                {% endfor %}
-                            </td>
-                        </tr>
-                    </table>
+                    some text
                 </div>
             </div>
         </div>
     </div>
+
 {% endblock %}

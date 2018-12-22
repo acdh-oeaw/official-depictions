@@ -2,7 +2,6 @@ from django.db import models
 from django.urls import reverse
 
 from entities.models import Person, Institution, Place
-from images.models import Image
 from idprovider.models import IdProvider
 from vocabs.models import SkosConcept
 
