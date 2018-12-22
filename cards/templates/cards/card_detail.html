@@ -13,7 +13,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Bilder</h4>
+                    <h3 class="card-title">Bilder</h3>
                 </div>
                 <div class="card-body">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -66,13 +66,148 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Info</h4>
+                    <h3 class="card-title">Info</h3>
                 </div>
                 <div class="card-body">
-                    some text
+                    <legend>
+                        Systematik
+                    </legend>
+                    <table class="table table-bordered table-hover">
+                        <tr>
+                            <th>
+                            {% get_verbose_name card "legacy_id" %}
+                            <i class="fas fa-info-circle" data-toggle="tooltip" data-html="true" title="{% get_help_text card 'legacy_id' %}"></i>
+                            </th>
+                            <td>
+                                {{ object.legacy_id }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                            {% get_verbose_name card "card_collection" %}
+                            <i class="fas fa-info-circle" data-toggle="tooltip" data-html="true" title="{% get_help_text card 'card_collection' %}"></i>
+                            </th>
+                            <td>
+                                <a href="{{ object.card_collection.get_absolute_url}}">
+                                    {{ object.card_collection }}
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                            {% get_verbose_name card "gelaufen" %}
+                            <i class="fas fa-info-circle" data-toggle="tooltip" data-html="true" title="{% get_help_text card 'gelaufen' %}"></i>
+                            </th>
+                            <td>
+                                {{ object.gelaufen }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                            {% get_verbose_name card "creator_person" %}
+                            <i class="fas fa-info-circle" data-toggle="tooltip" data-html="true" title="{% get_help_text card 'creator_person' %}"></i>
+                            </th>
+                            <td>
+                                {% for x in object.creator_person.all %}
+                                    <a href="{{ x.get_absolute_url}}">
+                                        {{ x }}
+                                    </a><br />
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                            {% get_verbose_name card "bild_technik" %}
+                            <i class="fas fa-info-circle" data-toggle="tooltip" data-html="true" title="{% get_help_text card 'bild_technik' %}"></i>
+                            </th>
+                            <td>
+                                {% for x in object.bild_technik.all %}
+                                    <a href="{{ x.get_absolute_url}}">
+                                        {{ x }}
+                                    </a>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                            {% get_verbose_name card "subject_norm" %}
+                            <i class="fas fa-info-circle" data-toggle="tooltip" data-html="true" title="{% get_help_text card 'subject_norm' %}"></i>
+                            </th>
+                            <td>
+                                {% for x in object.subject_norm.all %}
+                                    <a href="{{ x.get_absolute_url}}">{{ x }}</a>{% if not forloop.last %},{% endif %}
+                                {% endfor %}
+                            </td>
+                        </tr>
+                    </table>
+                    <legend>
+                        Text Vorderseite <i class="fas fa-info-circle" data-toggle="tooltip" data-html="true" title="{% get_help_text card 'text_front' %}"></i>
+                    </legend>
+                    <p>
+                        {{ object.text_front }}
+                    </p>
+                    <legend>
+                        Text Rückseite <i class="fas fa-info-circle" data-toggle="tooltip" data-html="true" title="{% get_help_text card 'text_back' %}"></i>
+                    </legend>
+                    <p>
+                        {{ object.text_back }}
+                    </p>
+                    {% if object.note or object.note_content %}
+                        <legend>
+                            Anmerkungen, Kommentare
+                        </legend>
+                        <p>
+                            {{ object.note }}
+                        </p>
+                        <p>
+                            {{ object.note_content }}
+                        </p>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
+    {% if object.mentioned_person.all or object.mentioned_inst.all or object.mentioned_place.all %}
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Verbundene Entitäten</h3>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>
+                                Personen
+                            </th>
+                            <th>
+                                Orte
+                            </th>
+                            <th>
+                                Institutionen
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                {% for x in object.mentioned_person.all %}
+                                    <a href="{{ x.get_absolute_url }}">{{ x }}</a><br />
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% for x in object.mentioned_place.all %}
+                                    <a href="{{ x.get_absolute_url }}">{{ x }}</a><br />
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% for x in object.mentioned_inst.all %}
+                                    <a href="{{ x.get_absolute_url }}">{{ x }}</a><br />
+                                {% endfor %}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+    {% endif %}
 
 {% endblock %}

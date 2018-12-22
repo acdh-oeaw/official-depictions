@@ -58,9 +58,13 @@ class Card(IdProvider):
     number = models.CharField(max_length=25, blank=True, verbose_name="Nr (Serie)")
     card_collection = models.ForeignKey(
         CardCollection, blank=True, null=True, verbose_name="Serie",
-        related_name="contain_cards", on_delete=models.SET_NULL
+        related_name="contain_cards",
+        help_text="some helptext",
+        on_delete=models.SET_NULL
     )
-    text_front = models.TextField(blank=True, verbose_name="Text Bildseite (Zitat)")
+    text_front = models.TextField(
+        blank=True, verbose_name="Text Bildseite (Zitat)"
+    )
     img_front = models.CharField(
         blank=True, verbose_name="Vorderseite", max_length=250
     )
