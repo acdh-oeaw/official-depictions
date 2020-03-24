@@ -38,3 +38,5 @@ dev_secret.py
 /arche/data/fileList.json
 data
 local.py
+
+myenv/

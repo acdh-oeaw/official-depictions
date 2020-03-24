@@ -9,7 +9,7 @@ if 'bib' in settings.INSTALLED_APPS:
     from bib.api_views import ZotItemViewSet
 
 router = routers.DefaultRouter()
-router.register(r'geojson', GeoJsonViewSet, base_name='places')
+router.register(r'geojson', GeoJsonViewSet, basename='places')
 router.register(r'metadata', api_views.MetadataViewSet)
 router.register(r'skoslabels', api_views.SkosLabelViewSet)
 router.register(r'skosnamespaces', api_views.SkosNamespaceViewSet)
