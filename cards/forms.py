@@ -104,22 +104,10 @@ class CardFilterFormHelper(FormHelper):
         self.layout = Layout(
             Accordion(
                 AccordionGroup(
-                    'Inhalt',
-                    'subject_norm',
-                    css_id="more"
-                    ),
-                AccordionGroup(
-                    'Datierung',
-                    'written_date',
-                    'not_before',
-                    'not_after',
-                    css_id="datierung"
-                    ),
-                AccordionGroup(
-                    'Bestand',
-                    'archiv',
+                    'Signatur / Sammlung',
                     'signature',
-                    css_id="bestand"
+                    'archiv',
+                    css_id="more"
                     ),
                 AccordionGroup(
                     'Personen',
@@ -128,15 +116,14 @@ class CardFilterFormHelper(FormHelper):
                     css_id="personen"
                     ),
                 AccordionGroup(
-                    'Institutionen',
-                    'creator_inst',
-                    'mentioned_inst',
-                    css_id="institutionen"
-                    ),
-                AccordionGroup(
                     'Orte',
                     'mentioned_place',
                     css_id="orte"
+                    ),
+                AccordionGroup(
+                    '[intern]',
+                    'public',
+                    css_id="[intern]"
                     ),
                 )
             )
