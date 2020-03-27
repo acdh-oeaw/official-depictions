@@ -105,6 +105,7 @@ class CardFilterFormHelper(FormHelper):
             Accordion(
                 AccordionGroup(
                     'Signatur / Sammlung',
+                    'legacy_id',
                     'signature',
                     'archiv',
                     css_id="more"
