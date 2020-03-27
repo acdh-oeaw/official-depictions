@@ -137,7 +137,7 @@ VOCABS_SETTINGS = {
     'default_lang': "en"
 }
 
-APIS_IIIF_SERVER = "https://depictions-iiif.acdh-dev.oeaw.ac.at/"
+APIS_IIIF_SERVER = "https://iiif.acdh.oeaw.ac.at/depictions"
 # APIS_OPENSEADRAGON_CSS = "https://teic.github.io/CETEIcean/css/CETEIcean.css"
 APIS_OSD_JS = "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.0/openseadragon.min.js"
 APIS_OSD_IMG_PREFIX = "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.0/images/"

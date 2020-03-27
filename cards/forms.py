@@ -111,6 +111,12 @@ class CardFilterFormHelper(FormHelper):
                     css_id="more"
                     ),
                 AccordionGroup(
+                    'Inhalt / Bildtechnik',
+                    'subject_norm',
+                    'bild_technik',
+                    css_id="inhalt"
+                    ),
+                AccordionGroup(
                     'Personen',
                     'creator_person',
                     'mentioned_person',
