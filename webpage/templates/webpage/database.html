@@ -1,0 +1,94 @@
+{% extends "webpage/base.html" %}
+{% load static %}
+{% load webpage_extras %}
+{% block title %} About {% endblock %}
+{% block content %}
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h1 class="card-title">
+        Hinweise zur Datenbank
+      </h1>
+    </div>
+    <div class="card-body">
+      <div>
+        <p>
+          Diese Datenbank umfasst alle bisher identifizierten Karten der ersten Produktionsphase 1914/15, der Hauptserie 1915-1917 und der dritten Produktionsphase 1917/18. Nicht enthalten sind einige in der Zeit von 1915 bis 1917 entstandenen
+          unnummerierte Einzelstücke, die vom Flottenverein zugunsten der offiziellen Kriegsfürsorge vertriebenen Ansichtskarten sowie der Sonderfall der Gloria-Viktoria-Karten. </p>
+        <p>
+          Für Korrekturen und Ergänzungen von Institutionen und Einzelpersonen bin ich dankbar!
+        </p>
+        <table class="table">
+          <tr>
+            <th>Ldf. Nr.</th>
+            <td>Laufende Nummer. Alle identifizierten Karten, inklusive der Variationen, wurden mit fortlaufenden Nummern versehen. Auch für unidentifizierte Karten wurde eine laufende Nummer vergeben, und zwar einerseits für fehlende Nummern der
+              Hauptserie und andererseits wenn ergänzende Quellen (Presseberichte, Verkaufslisten, Archivquellen etc.) einen bestimmten Kartentitel nennen, aufgrund derer diese Karten künftig identifiziert und zugeordnet werden könnten (vgl. z. B.
+              die Thomas-Riss-Karten Nr. 959-967).</td>
+          </tr>
+          <tr>
+            <th>Serie</th>
+            <td>
+              <p>
+                Zur besseren Zuordnung wurden die Karten einer chronologischen und formalen Serie zugeordnet.
+                Ph1 steht für die erste Phase 1914/15 und gliedert sich in die folgenden Unterrubriken: Ph1-Brü = Brüch-Serie; Ph1-KBK = Kriegsbildkarten; Ph1-sgr = Serie mit schlichter grauer Adressseite; Ph1-Var = Varia, alle sonstigen Einzelstücke
+                und Kleinstserien.
+              </p>
+              <p>
+                HS steht für Hauptserie (1915-1917) und gliedert sich in die folgenden Unterrubriken: HS-Kün = Komitee bildender Künstler im Dienste der Kriegshilfe (orange Rückseite); HS-Reg = Reguläre Karten der Hauptserie mit Wellenlinie (auf
+                manchen Variationen grau statt grün, alternative Begünstigte wurden ebenfalls als Reg. klassifiziert); HS-Son = Sonderfälle: Karten die aufgrund der Nummerierung der Hauptserie zuzuordnen sind, deren Adressseite jedoch abweichend
+                gestaltet ist (kein oder anderer Rahmen)
+              </p>
+              <p>
+                Ph3 steht für die dritte Phase 1917/18 und gliedert sich in folgende Unterrubriken: Ph3-Fam = Serie Kaiserfamilie (Helene von Zimmerauer); Ph3-MaS = Serien der Marineschauspiele; Ph3-KuK = Kaiser und Königin-Postkartenalbum; Ph3-TR =
+                Thomas-Riss Soldatenportraits; Ph3-Var = Varia, alle sonstigen Einzelstücke</p>
+                <p>
+                  AK n. id. (Ansichtskarte nicht identifiziert) wurde eingetragen, wenn Karten noch unidentifiziert sind oder zwar die Bildseite, nicht aber die Adressseite identifiziert wurde
+                </p>
+          </tr>
+          <tr>
+            <th>Nr i d Serie</th>
+            <td><p>Nummer in der Serie, wenn diese nummeriert war, was auf die Kriegsbildkarten, die Serie mit schlichter grauer Adressseite und die Hauptserie zutrifft. Die Nummer wurde dabei exakt nach dem Aufdruck angegeben, also inklusive Unternummern, z.B. 53f, 54A, 74-13</p>
+            <p>471 [Variante 1], 471 [Variante 2] = Karten einer Nummer, deren Motiv in geringfügig unterschiedlichen Variationen (z.B. Farbgebung, Aufdruck) veröffentlicht wurde
+101 [1], 101 [2] = Karten, wobei unter der gleichen Nummer zwei unterschiedliche Motive veröffentlicht wurden
+[55] = Karten der Hauptserie die keine Nummer tragen, denen aber in anderen Quellen (insbes. Verkaufskatalogen) eine Nummer zugeordnet wurde, hier Karte des Komitees bildender Künstler</p>
+<p>o.Nr. [02] = Karten der Hauptserie ohne Nummer, denen zur besserer Übersicht eine beliebige vorläufige Nummer zugewiesen wurde</p></td>
+          </tr>
+          <tr>
+            <th>(Archiv)Quelle</th>
+            <td>
+              Quelle, anhand derer die Texte von Bild- und Adressseite in die Datenbank eingetragen wurden. Die Datenbank basiert vor allem auf den aus der Privatsammlung Gerald Kern, Graz angefertigten Scans (z.B. Slg. GKG Scan 028_1), ergänzt wurde dies durch die Privatsammlung des Projektleiters (z.B. Slg. JBI, Nr. 1165) und die Sammlung Günter Sommer im Stadtarchiv/Stadtmuseum Innsbruck (z.B. StAI, Sommer Bd. 15, Nr. 160). Internetquellen wurden nur dann herangezogen, wenn die Motive mit Bild- und Adressseite abgebildet waren oder sich die Bildseite aus formalen Kriterien eindeutig zuordnen ließ. Auf die Angabe exakter Links wurde verzichtet, da insbesondere bei Verkaufsplattformen die Bilder nach einigen Wochen ohnehin nicht mehr abgerufen werden können.
+            </td>
+          </tr>
+          <tr><th>Text Bildseite (Zitat)</th>
+            <td>Alle Textelemente der Bildseite wurden hier buchstabengetreu eingetragen. Auf den Karten visuell getrennte Textelemente wurden durch ein Semikolon getrennt. Handelt es sich um Textelemente, die nicht als typografischer Aufdruck angebracht wurden, wurde folgende Kennzeichnungen vorangestellt:
+              <ul>
+                <li>
+[sign.] = Signatur, entweder des Künstlers (Name, Bildtitel etc.), oder eine Faksimile-Handschrift des Porträtierten, oder die Sigle der Druckerei (z.B. AG)</li>
+<li>
+[kalligr.] = kalligrafisch ausgeführte Textteile (vgl. z.B. Lfd. Nr. 84)</li><li>
+[Logo] = Logo einer Firma</li></ul>
+Die Reihung erfolgt nicht nach der Platzierung auf der Karte sondern üblicherweise in folgender Form: 1. Titel der Karte, 2. sonstige typografische Aufdrucke, 3. Signatur des Künstlers, 4. Sigle der Druckerei
+Fragliche Textelemente (insbes. Signaturen) wurden mit eckigen Klammern und/oder Fragezeichen oder „[unleserlich]“gekennzeichnet (vgl. z.B. Lfd. Nr. 337, 411)
+Karten ohne aussagekräftige Titel wurden zwecks leichterer Identifizierung zum Teil mit einer Kurzbeschreibung in eckigen Klammern versehen (vgl. Lfd. Nr. 180)
+Karte unidentifiziert = wurde eingetragen, wenn Karten noch unidentifiziert sind</td>
+          </tr>
+          <tr>
+            <th>Text Bildseite (Zitat)</th>
+            <td><p>Alle Textelemente der Bildseite wurden hier buchstabengetreu eingetragen. Auf den Karten visuell getrennte Textelemente wurden durch ein Semikolon getrennt. Die Reihung beginnt immer mit der Widmung und erfolgt dann üblicherweise gegen den Uhrzeigersinn.
+Zur Kennzeichnung nicht-typografischer oder fraglicher Textelemente vgl. die Erläuterungen zu „Text Bildseite (Zitat)“ oben.</p><p>
+Rückseite fehlt = wurde eingetragen, wenn zwar die Bildseite aufgrund von Internetquellen eindeutig identifiziert werden konnte, die Adressseite dort jedoch nicht angegeben war (vgl. a. die Erläuterungen zu „Quelle“ oben).</p><p>
+Karte unidentifiziert = wurde eingetragen, wenn Karten noch unidentifiziert sind</p>
+          </tr>
+          <tr>
+            <th>Erzeuger des Dokuments(Person)</th>
+            <td><p>Der Name des Künstlers bzw. Illustrators ist in der standardisierten Form Nachname, Vorname(n) angegeben. Dies umfasst lediglich den Künstler des Bildes, nicht jedoch Verfasser abgedruckter Gedichte oder Lieder.</p><p>
+unidentifiziert = der Maler der Karte ist derzeit noch unidentifiziert</p><p>
+AK n. id. = (Ansichtskarte nicht identifiziert) wurde eingetragen, wenn Karten noch unidentifiziert sind</p></td>
+<tr><th>gelaufen</th><td>Bezeichnet, ob die Karte postalisch versandt wurde (gel. für gelaufen) oder nicht (n. gel. für nicht gelaufen). Bei gelaufenen Karten wurde das Datum vor allem dort eingetragen, wo es zur zeitlichen die Datierung der Serie beiträgt. Insbesondere bei der nummerierten Hauptserie ist dies nicht der Fall, weshalb auf die Angabe verzichtet wurde, zumal die Informationen den Scans entnommen werden können.</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
