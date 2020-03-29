@@ -88,11 +88,11 @@ class Card(IdProvider):
         blank=True, verbose_name="Text Bildseite (Zitat)"
     )
     img_front = models.CharField(
-        blank=True, verbose_name="Vorderseite", max_length=250
+        blank=True, verbose_name="Bildseite", max_length=250
     )
-    text_back = models.TextField(blank=True, verbose_name="Text Rückseite")
+    text_back = models.TextField(blank=True, verbose_name="Text Adressseite")
     img_back = models.CharField(
-        blank=True, verbose_name="Rückseite", max_length=250
+        blank=True, verbose_name="Adressseite", max_length=250
     )
     gelaufen = models.CharField(max_length=250, blank=True, verbose_name="gelaufen")
     note = models.TextField(
@@ -140,14 +140,14 @@ class Card(IdProvider):
     )
     creator_person = models.ManyToManyField(
         Person, blank=True,
-        help_text="Erzeuger des Dokuments",
-        verbose_name="Erzeuger des Dokuments(Person)",
+        help_text="Erzeuger des Bildes",
+        verbose_name="Erzeuger des Bildes (Person)",
         related_name="created_by_person"
     )
     creator_inst = models.ManyToManyField(
         Institution, blank=True,
-        help_text="Erzeuger des Dokuments(Institution)",
-        verbose_name="Erzeuger des Dokuments(Institution)",
+        help_text="Erzeuger des Bildes (Institution)",
+        verbose_name="Erzeuger des Bildes (Institution)",
         related_name="created_by_inst"
     )
     mentioned_person = models.ManyToManyField(
