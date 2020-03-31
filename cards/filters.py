@@ -34,6 +34,10 @@ class CardListFilter(django_filters.FilterSet):
         method=generous_concept_filter,
         widget=forms.CheckboxSelectMultiple(attrs={'class': 'chbx-select-multi'})
     )
+    creator_person__date_of_death = django_filters.DateFromToRangeFilter(
+        help_text=Person._meta.get_field('date_of_death').help_text,
+        label=Person._meta.get_field('date_of_death').verbose_name
+    )
 
     class Meta:
         model = Card

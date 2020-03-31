@@ -119,7 +119,7 @@ class CardFilterFormHelper(FormHelper):
                 AccordionGroup(
                     'Personen',
                     'creator_person',
-                    'mentioned_person',
+                    'creator_person__date_of_death',
                     css_id="personen"
                     ),
                 AccordionGroup(
