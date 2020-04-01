@@ -70,7 +70,8 @@ class CardCollection(IdProvider):
 class Card(IdProvider):
     """This class describes a post-card like entity"""
     legacy_id = models.IntegerField(
-        blank=True, null=True, verbose_name="Lfd. Nr."
+        blank=True, null=True, verbose_name="Lfd. Nr.",
+        help_text="""Laufende Nummer. Alle identifizierten Karten, inklusive der Variationen, wurden mit fortlaufenden Nummern versehen. Auch für unidentifizierte Karten wurde eine laufende Nummer vergeben, und zwar einerseits für fehlende Nummern der Hauptserie und andererseits wenn ergänzende Quellen (Presseberichte, Verkaufslisten, Archivquellen etc.) einen bestimmten Kartentitel nennen, aufgrund derer diese Karten künftig identifiziert und zugeordnet werden könnten (vgl. z. B. die Thomas-Riss-Karten Nr. 959-967)."""
     )
     sort_id = models.IntegerField(
         blank=True, null=True, verbose_name="Chronologie"
@@ -81,20 +82,27 @@ class Card(IdProvider):
     card_collection = models.ForeignKey(
         CardCollection, blank=True, null=True, verbose_name="Serie",
         related_name="contain_cards",
-        help_text="some helptext",
+        help_text="Zur besseren Zuordnung wurden die Karten einer chronologischen und formalen Serie zugeordnet.",
         on_delete=models.SET_NULL
     )
     text_front = models.TextField(
-        blank=True, verbose_name="Text Bildseite (Zitat)"
+        blank=True, verbose_name="Text Bildseite (Zitat)",
+        help_text="Alle Textelemente der Bildseite wurden hier buchstabengetreu eingetragen. Auf den Karten visuell getrennte Textelemente wurden durch ein Semikolon getrennt. Die Reihung beginnt immer mit der Widmung und erfolgt dann üblicherweise gegen den Uhrzeigersinn."
     )
     img_front = models.CharField(
         blank=True, verbose_name="Bildseite", max_length=250
     )
-    text_back = models.TextField(blank=True, verbose_name="Text Adressseite")
+    text_back = models.TextField(
+        blank=True, verbose_name="Text Adressseite",
+        help_text="Alle Textelemente der Adressseite wurden hier buchstabengetreu eingetragen. Auf den Karten visuell getrennte Textelemente wurden durch ein Semikolon getrennt. Die Reihung beginnt immer mit der Widmung und erfolgt dann üblicherweise gegen den Uhrzeigersinn"
+    )
     img_back = models.CharField(
         blank=True, verbose_name="Adressseite", max_length=250
     )
-    gelaufen = models.CharField(max_length=250, blank=True, verbose_name="gelaufen")
+    gelaufen = models.CharField(
+        max_length=250, blank=True, verbose_name="gelaufen",
+        help_text="Bezeichnet, ob die Karte postalisch versandt wurde (gel. für gelaufen) oder nicht (n. gel. für nicht gelaufen)."
+    )
     note = models.TextField(
         blank=True, null=True, verbose_name="Formale Anmerkungen"
     )
@@ -103,8 +111,8 @@ class Card(IdProvider):
     )
     archiv = models.ForeignKey(
         Institution, null=True, blank=True,
-        verbose_name="Archiv",
-        help_text="Archiv in dem das Dokument aufbewahrt wird",
+        verbose_name="Archiv/Quelle",
+        help_text="Quelle, anhand derer die Texte von Bild- und Adressseite in die Datenbank eingetragen wurden.",
         related_name="has_docs_archived",
         on_delete=models.SET_NULL
     )
@@ -140,9 +148,9 @@ class Card(IdProvider):
     )
     creator_person = models.ManyToManyField(
         Person, blank=True,
-        help_text="Erzeuger des Bildes",
         verbose_name="Erzeuger des Bildes (Person)",
-        related_name="created_by_person"
+        related_name="created_by_person",
+        help_text="Der Name des Künstlers bzw. Illustrators ist in der standardisierten Form Nachname, Vorname(n) angegeben. Dies umfasst lediglich den Künstler des Bildes, nicht jedoch Verfasser abgedruckter Gedichte oder Lieder.",
     )
     creator_inst = models.ManyToManyField(
         Institution, blank=True,
