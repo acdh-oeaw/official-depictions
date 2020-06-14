@@ -117,6 +117,12 @@ class CardFilterFormHelper(FormHelper):
                     css_id="inhalt"
                     ),
                 AccordionGroup(
+                    'Text Bild- und Addressseite',
+                    'text_front',
+                    'text_back',
+                    css_id="texte"
+                    ),
+                AccordionGroup(
                     'Personen',
                     'creator_person',
                     'creator_person__date_of_death',

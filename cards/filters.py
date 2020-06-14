@@ -16,6 +16,16 @@ class CardListFilter(django_filters.FilterSet):
         help_text=Card._meta.get_field('signature').help_text,
         label=Card._meta.get_field('signature').verbose_name
     )
+    text_front = django_filters.CharFilter(
+        lookup_expr='icontains',
+        help_text=Card._meta.get_field('text_front').help_text,
+        label=Card._meta.get_field('text_front').verbose_name
+    )
+    text_back = django_filters.CharFilter(
+        lookup_expr='icontains',
+        help_text=Card._meta.get_field('text_back').help_text,
+        label=Card._meta.get_field('text_back').verbose_name
+    )
     subject_norm = django_filters.ModelMultipleChoiceFilter(
         queryset=SkosConcept.objects.filter(
             collection__name__icontains="motiv"
