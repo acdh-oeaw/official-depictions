@@ -19,6 +19,7 @@ class CardTable(tables.Table):
     legacy_id = tables.LinkColumn(
         verbose_name='Lfd. Nr.'
     )
+    number = tables.LinkColumn()
     mentioned_person = tables.ManyToManyColumn()
     mentioned_inst = tables.ManyToManyColumn()
     mentioned_place = tables.ManyToManyColumn()
@@ -29,5 +30,5 @@ class CardTable(tables.Table):
 
     class Meta:
         model = Card
-        sequence = ('legacy_id', 'signature', 'card_collection',)
+        sequence = ()
         attrs = {"class": "table table-responsive table-hover"}

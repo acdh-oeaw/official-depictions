@@ -69,9 +69,11 @@ class CardListView(GenericListView):
     formhelper_class = CardFilterFormHelper
     table_class = CardTable
     init_columns = [
-        'signature',
-        'legacy_id',
         'card_collection',
+        'number',
+        'text_front',
+        'text_back',
+        'signature',
     ]
 
     def get_queryset(self, **kwargs):
