@@ -101,7 +101,6 @@
                     <div class="card-body">
                         {% with table.paginator.count as total %}
                         <legend>Result: {{ total }} items</legend>
-                            {% if conf_items %}
                                 <div class="dropdown">
                                     <button class="btn btn-default dropdown-toggle dropdown-custom" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                         <i class="fas fa-download"></i>
@@ -109,12 +108,10 @@
                                         <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                        <li><a class="dropdown-item" href="{% querystring %}&sep=comma">"," separated</a></li>
-                                        <li><a class="dropdown-item" href="{% querystring %}&sep=semicolon">";" separated</a></li>
-                                        <li><a class="dropdown-item" href="{% querystring %}&sep=tab">"tab" separated</a></li>
+                                        <li><a class="dropdown-item" href="{% querystring %}&_export=csv">als CSV</a></li>
+                                        <li><a class="dropdown-item" href="{% querystring %}&_export=xlsx">als Excel</a></li>
                                     </ul>
                                 </div>
-                            {% endif %}
                         {% endwith %}
                         {% block table %}
                             <table class="table" {% if table.attrs %} {{ table.attrs.as_html }}{% endif %}>

@@ -12,6 +12,9 @@ from django.views.generic.edit import CreateView, UpdateView
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Fieldset, Div, MultiField, HTML
 
+from django_tables2.export.views import ExportMixin
+
+
 from . models import BrowsConf
 
 if 'charts' in settings.INSTALLED_APPS:
@@ -58,7 +61,7 @@ django_filters.filters.LOOKUP_TYPES = [
 ]
 
 
-class GenericListView(django_tables2.SingleTableView):
+class GenericListView(ExportMixin, django_tables2.SingleTableView):
     filter_class = None
     formhelper_class = None
     context_filter_name = 'filter'
