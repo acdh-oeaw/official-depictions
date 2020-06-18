@@ -11,6 +11,9 @@ from . utils import get_coordinates
 INSTITUTION_TYPES = (
     ('Partei', 'Partei'),
     ('Archiv', 'Archiv'),
+    ('Kriegsfürsorgeorganisation', 'Kriegsfürsorgeorganisation'),
+    ('Atelier', 'Atelier'),
+    ('Verlag/Druckerei', 'Verlag/Druckerei'),
     ('Sonstiges', 'Sonstiges'),
 )
 
