@@ -27,8 +27,17 @@ class CardTable(tables.Table):
     creator_inst = tables.ManyToManyColumn()
     subject_norm = tables.ManyToManyColumn()
     bild_technik = tables.ManyToManyColumn()
+    thumbnail = tables.columns.TemplateColumn(
+        template_name="cards/thumbcolumn.html",
+        orderable=False,
+        verbose_name='Vorschaubild'
+    )
 
     class Meta:
         model = Card
-        sequence = ()
+        sequence = (
+            'card_collection',
+            'number',
+            'thumbnail',
+        )
         attrs = {"class": "table table-responsive table-hover"}

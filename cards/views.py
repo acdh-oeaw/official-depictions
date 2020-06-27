@@ -71,6 +71,7 @@ class CardListView(GenericListView):
     init_columns = [
         'card_collection',
         'number',
+        'thumbnail',
         'text_front',
         'text_back',
         'signature',

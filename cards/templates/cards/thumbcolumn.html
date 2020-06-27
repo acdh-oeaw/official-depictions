@@ -1,0 +1,6 @@
+
+{% if record.get_thumb_front %}
+  <a href="{{ record.get_absolute_url }}">
+    <img src="{{ record.get_thumb_front }}" alt="{{ record.get_thumb_front }}" class="img-thumbnail" />
+  </a>
+{% endif %}

@@ -1,9 +1,13 @@
 from django.db import models
 from django.urls import reverse
 
+from django.conf import settings
+
 from entities.models import Person, Institution, Place
 from idprovider.models import IdProvider
 from vocabs.models import SkosConcept
+
+IIIF_SERVER = settings.APIS_IIIF_SERVER
 
 
 class CardCollection(IdProvider):
@@ -209,6 +213,13 @@ class Card(IdProvider):
                 kwargs={'pk': next.first().id}
             )
         return False
+
+    def get_thumb_front(self):
+        if self.img_front:
+            thumb_url = f"{IIIF_SERVER}/{self.img_front}/full/250,/0/default.jpg"
+        else:
+            thumb_url = None
+        return thumb_url
 
     def get_prev(self):
         prev = self.__class__.objects.filter(id__lt=self.id).order_by('-id')

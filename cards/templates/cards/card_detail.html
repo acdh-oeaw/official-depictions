@@ -201,48 +201,6 @@
             </div>
         </div>
     </div>
-    {% if object.mentioned_person.all or object.mentioned_inst.all or object.mentioned_place.all %}
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Verbundene Entitäten</h3>
-            </div>
-            <div class="card-body">
-                <table class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th>
-                                Personen
-                            </th>
-                            <th>
-                                Orte
-                            </th>
-                            <th>
-                                Institutionen
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                {% for x in object.mentioned_person.all %}
-                                    <a href="{{ x.get_absolute_url }}">{{ x }}</a><br />
-                                {% endfor %}
-                            </td>
-                            <td>
-                                {% for x in object.mentioned_place.all %}
-                                    <a href="{{ x.get_absolute_url }}">{{ x }}</a><br />
-                                {% endfor %}
-                            </td>
-                            <td>
-                                {% for x in object.mentioned_inst.all %}
-                                    <a href="{{ x.get_absolute_url }}">{{ x }}</a><br />
-                                {% endfor %}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-    {% endif %}
 {% else %}
     <h3>Diese Karte wird derzeit überarbeitet</h3>
 {% endif %}
