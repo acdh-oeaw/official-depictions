@@ -8,8 +8,8 @@
     <title>{% block title %} {% projects_metadata 'title' %}{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% block metaDescription %}
-        <meta name="description" content="{{ metadata.description }}">
-        <meta name="author" content="{{ metadata.author }}">
+        <meta name="description" content="{% projects_metadata 'description' %}">
+        <meta name="author" content="Joachim Bürgschwentner, Peter Andorfer">
     {% endblock %}
     <!-- favicons -->
         <link rel="apple-touch-icon" sizes="180x180" href="{% static 'webpage/img/favicon/apple-touch-icon.png' %}"/>
