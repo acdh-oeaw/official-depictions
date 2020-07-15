@@ -36,6 +36,7 @@ class CardTable(tables.Table):
     class Meta:
         model = Card
         sequence = (
+            'legacy_id',
             'card_collection',
             'number',
             'thumbnail',

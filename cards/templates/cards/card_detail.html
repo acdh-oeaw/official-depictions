@@ -114,6 +114,13 @@
                             </td>
                         </tr>
                         <tr>
+                          <th>
+                            PID
+                            <i class="fas fa-info-circle" data-toggle="tooltip" data-html="true" title="Persistenter Identifier"></i>
+                          </th>
+                          <td><a href="{{ object.pid.all.first }}">{{ object.pid.all.first.handle }}</a></td>
+                        </tr>
+                        <tr>
                             <th>
                             {% get_verbose_name card "gelaufen" %}
                             <i class="fas fa-info-circle" data-toggle="tooltip" data-html="true" title="{% get_help_text card 'gelaufen' %}"></i>

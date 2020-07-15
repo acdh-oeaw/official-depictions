@@ -85,7 +85,7 @@
                         {% for x in object.contain_cards.all %}
                             <tr>
                                 <td>
-                                    {% if x.public %}
+                                    {% if x.public or user.is_authenticated %}
                                         <a href="{{ x.get_absolute_url }}">{{ x }}</a>
                                     {% else %}
                                         {{ x }} <small>derzeit in Bearbeitung</small>

@@ -69,6 +69,7 @@ class CardListView(GenericListView):
     formhelper_class = CardFilterFormHelper
     table_class = CardTable
     init_columns = [
+        'legacy_id',
         'card_collection',
         'number',
         'thumbnail',
