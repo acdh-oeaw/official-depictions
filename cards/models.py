@@ -1,8 +1,9 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.contenttypes.fields import GenericRelation
 
 from django.conf import settings
-
+from handle.models import Pid
 from entities.models import Person, Institution, Place
 from idprovider.models import IdProvider
 from vocabs.models import SkosConcept
@@ -181,6 +182,7 @@ class Card(IdProvider):
         related_name="place_mentioned_in_res"
     )
     public = models.BooleanField(default=False)
+    pid = GenericRelation(Pid, blank=True, null=True, related_query_name="get_pid")
 
     def __str__(self):
         if self.signature:
