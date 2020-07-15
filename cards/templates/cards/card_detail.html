@@ -58,7 +58,6 @@
                                     noch kein Bild zugeordnet
                                 </p>
                             {% endif %}
-
                         </div>
                     </div>
                 </div>
@@ -198,8 +197,17 @@
                         {% endif %}
                     {% endif %}
                 </div>
+
             </div>
         </div>
+
+    </div>
+    <div class="card-footer">
+      <blockquote class="blockquote">
+        <footer class="blockquote-footer">Zitierhinweis</footer>
+        <p class="mb-0">Offizielle Ansichten, Karte Nr. {{object.legacy_id}}, URL: <a href="{{ object.pid.all.first }}">{{ object.pid.all.first }}</a>
+        </p>
+      </blockquote>
     </div>
 {% else %}
     <h3>Diese Karte wird derzeit überarbeitet</h3>
