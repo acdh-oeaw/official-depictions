@@ -144,3 +144,22 @@ APIS_IIIF_SERVER = "https://iiif.acdh.oeaw.ac.at/depictions"
 # APIS_OPENSEADRAGON_CSS = "https://teic.github.io/CETEIcean/css/CETEIcean.css"
 APIS_OSD_JS = "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.0/openseadragon.min.js"
 APIS_OSD_IMG_PREFIX = "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.0/images/"
+
+
+LEAFLET_CONFIG = {
+    'MAX_ZOOM': 18,
+    'DEFAULT_CENTER': (47, 16),
+    'DEFAULT_ZOOM': 4,
+    'TILES': [
+        (
+            'BASIC',
+            'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            {
+                'attribution':
+                    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>\
+                    contributors',
+                'maxZoom': 18,
+            }
+        )
+    ],
+}
