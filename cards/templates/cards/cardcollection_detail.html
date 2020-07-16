@@ -2,6 +2,10 @@
 {% load static %}
 {% load webpage_extras %}
 {% block title %}{{ object }}{% endblock %}
+{% block scriptHeader %}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.21/b-1.6.2/b-html5-1.6.2/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.21/b-1.6.2/b-html5-1.6.2/datatables.min.js"></script>
+{% endblock scriptHeader %}
 {% block custom %}
     <div class="card">
         <div class="card-header">
@@ -67,11 +71,12 @@
                 <h4 class="card-title">{{ object.contain_cards.all|length }} Karten</h4>
             </div>
             <div class="card-body">
-                <table class="table table-bordered table-hover">
+                <table id="example" class="table table-bordered table-hover">
                     <thead>
                         <tr>
+                            <th>Laufende Nr.</th>
                             <th>
-                                Lfd. Nr.
+                                (Signatur)
                             </th>
                             <th>
                                 Bild Technik
@@ -79,32 +84,60 @@
                             <th>
                                 Künstler
                             </th>
+                            <th>
+                                Vorschau
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for x in object.contain_cards.all %}
-                            <tr>
-                                <td>
-                                    {% if x.public or user.is_authenticated %}
-                                        <a href="{{ x.get_absolute_url }}">{{ x }}</a>
-                                    {% else %}
-                                        {{ x }} <small>derzeit in Bearbeitung</small>
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    {% for y in x.bild_technik.all %}
-                                        {{ y }}
-                                    {% endfor %}
-                                </td>
-                                <td>
-                                    {% for y in x.creator_person.all %}
-                                        <a href="{{ y.get_absolute_url }}">{{ y }}</a>
-                                    {% endfor %}
-                                </td>
-                            </tr>
+                        <tr>
+                          <td>
+                            {% if x.public or user.is_authenticated %}
+                          <a href="{{ x.get_absolute_url }}"><strong>{{ x.legacy_id }}</strong></a>
+                          {% else %} <strong>{{ x.legacy_id }}</strong>
+                          {% endif %}
+                          </td>
+                            <td>
+                                {{ x }}
+                            </td>
+                            <td>
+                                {% for y in x.bild_technik.all %}
+                                    {{ y }}
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% for y in x.creator_person.all %}
+                                    <a href="{{ y.get_absolute_url }}">{{ y }}</a>
+                                {% endfor %}
+                            </td>
+                            <td>
+                              {% if x.public or user.is_authenticated %}
+                              <a href="{{ x.get_absolute_url }}">
+                                <img src="{{ x.get_thumb_front }}" alt="{{ x.get_thumb_front }}" class="img-thumbnail" />
+                              </a>
+                              {% else %}
+                              in Bearbeitung
+                              {% endif %}
+                            </td>
+                        </tr>
                         {% endfor %}
                     </tbody>
                 </table>
+                <script>
+                  $(document).ready(function() {
+                    $('#example').DataTable({
+                      "pageLength": 50,
+                      dom: 'Bfrtip',
+                      buttons: [
+                        'copy', 'csv', 'excel', 'pdf',
+                      ],
+                      "language": {
+                        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
+                      }
+                    });
+                  } );
+                </script>
             </div>
         </div>
     {% endif %}

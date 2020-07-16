@@ -144,61 +144,65 @@
         <div class="card-body">
           <table class="table table-bordered table-hover" id="example">
               <thead>
-                  <tr>
-                      <th>
-                          Laufende Nr. (Signatur)
-                      </th>
-                      <th>
-                          Bild Technik
-                      </th>
-                      <th>
-                          Künstler
-                      </th>
-                      <th>
-                          Vorschau
-                      </th>
-                  </tr>
+                <tr>
+                    <th>Laufende Nr.</th>
+                    <th>
+                        (Signatur)
+                    </th>
+                    <th>
+                        Bild Technik
+                    </th>
+                    <th>
+                        Künstler
+                    </th>
+                    <th>
+                        Vorschau
+                    </th>
+                </tr>
               </thead>
               <tbody>
                   {% for x in object.created_by_person.all %}
-                      <tr>
-                          <td>
-                              {% if x.public or user.is_authenticated %}
-                                  <a href="{{ x.get_absolute_url }}">{{ x.legacy_id }}</a> <br /> (<small>{{ x }}</small>)
-                              {% else %}
-                                  {{ x.legacy_id }} <br /> (<small>{{ x }}</small>) <small>derzeit in Bearbeitung</small>
-                              {% endif %}
-                          </td>
-                          <td>
-                              {% for y in x.bild_technik.all %}
-                                  {{ y }}
-                              {% endfor %}
-                          </td>
-                          <td>
-                              {% for y in x.creator_person.all %}
-                                  <a href="{{ y.get_absolute_url }}">{{ y }}</a>
-                              {% endfor %}
-                          </td>
-                          <td>
-                            {% if x.public or user.is_authenticated %}
-                            <a href="{{ x.get_absolute_url }}">
-                              <img src="{{ x.get_thumb_front }}" alt="{{ x.get_thumb_front }}" class="img-thumbnail" />
-                            </a>
-                            {% else %}
-                            in Bearbeitung
-                            {% endif %}
-                          </td>
-                      </tr>
+                  <tr>
+                    <td>
+                      {% if x.public or user.is_authenticated %}
+                    <a href="{{ x.get_absolute_url }}"><strong>{{ x.legacy_id }}</strong></a>
+                    {% else %} <strong>{{ x.legacy_id }}</strong>
+                    {% endif %}
+                    </td>
+                      <td>
+                          {{ x }}
+                      </td>
+                      <td>
+                          {% for y in x.bild_technik.all %}
+                              {{ y }}
+                          {% endfor %}
+                      </td>
+                      <td>
+                          {% for y in x.creator_person.all %}
+                              <a href="{{ y.get_absolute_url }}">{{ y }}</a>
+                          {% endfor %}
+                      </td>
+                      <td>
+                        {% if x.public or user.is_authenticated %}
+                        <a href="{{ x.get_absolute_url }}">
+                          <img src="{{ x.get_thumb_front }}" alt="{{ x.get_thumb_front }}" class="img-thumbnail" />
+                        </a>
+                        {% else %}
+                        in Bearbeitung
+                        {% endif %}
+                      </td>
+                  </tr>
                   {% endfor %}
               </tbody>
           </table>
           <script>
             $(document).ready(function() {
               $('#example').DataTable({
+                "pageLength": 50,
                 dom: 'Bfrtip',
-       buttons: [
-           'copy', 'csv', 'excel', 'pdf',
-       ],
+                buttons: [
+                  'copy', 'csv', 'excel', 'pdf',
+                ],
                 "language": {
                   "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
                 }
