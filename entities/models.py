@@ -21,8 +21,9 @@ INSTITUTION_TYPES = (
 class Place(IdProvider):
     """Holds information about entities."""
     PLACE_TYPES = (
-        ("city", "city"),
-        ("country", "country")
+        ("Stadt", "Stadt"),
+        ("Land", "Land"),
+        ("Gebiet/Region", "Gebiet/Region")
     )
     name = models.CharField(
         max_length=250, blank=True, help_text="Normalized name"
@@ -33,8 +34,8 @@ class Place(IdProvider):
     )
     geonames_id = models.CharField(
         max_length=500, blank=True,
-        verbose_name="Geonames-ID",
-        help_text="z.B.: http://www.geonames.org/2773493/bad-kreuzen.html"
+        verbose_name="GND-ID",
+        help_text="z.B.: https://d-nb.info/gnd/16075953-5"
     )
     lat = models.DecimalField(
         max_digits=20, decimal_places=12,
@@ -52,30 +53,6 @@ class Place(IdProvider):
     place_type = models.CharField(
         choices=PLACE_TYPES, null=True, blank=True, max_length=50
     )
-
-    def get_geonames_url(self):
-        if self.geonames_id.startswith('ht') and self.geonames_id.endswith('.html'):
-            return self.geonames_id
-        else:
-            return "http://www.geonames.org/{}".format(self.geonames_id)
-
-    def get_geonames_rdf(self):
-        try:
-            number = re.findall(r'\d+', str(self.geonames_id))[0]
-            return number
-        except Exception as e:
-            return None
-
-    def save(self, *args, **kwargs):
-        if self.geonames_id:
-            new_id = self.get_geonames_url()
-            self.geonames_id = new_id
-        if self.get_geonames_rdf() and not self.lat:
-            coords = get_coordinates(self.get_geonames_rdf())
-            if coords:
-                self.lat = coords['lat']
-                self.lng = coords['lng']
-        super(Place, self).save(*args, **kwargs)
 
     @classmethod
     def get_listview_url(self):
