@@ -54,6 +54,9 @@ class Place(IdProvider):
         choices=PLACE_TYPES, null=True, blank=True, max_length=50
     )
 
+    class Meta:
+        ordering = ['name']
+
     @classmethod
     def get_listview_url(self):
         return reverse('entities:place_browse')
@@ -127,6 +130,7 @@ class Institution(IdProvider):
         max_length=300, blank=True, verbose_name='Art der Institution',
         help_text="Partei, Archiv, sonstiges", choices=INSTITUTION_TYPES, default="Sonstiges"
     )
+
 
     @classmethod
     def get_listview_url(self):

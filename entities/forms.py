@@ -130,13 +130,8 @@ class PlaceFilterFormHelper(FormHelper):
                     'Basic search options',
                     'name',
                     'alt_names',
+                    'place_type',
                     css_id="basic_search_fields"
-                    ),
-                AccordionGroup(
-                    'Bestand',
-                    'location',
-                    'location__archiv',
-                    css_id="bestand"
                     ),
                 )
             )
