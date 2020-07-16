@@ -1,13 +1,21 @@
 {% extends "browsing/generic_detail.html" %}
 {% load static %}
+{% load leaflet_tags %}
 {% load webpage_extras %}
 {% block title %}{{ object }}{% endblock %}
+{% block scriptHeader %}
+    {% leaflet_js %}
+    {% leaflet_css %}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.21/b-1.6.2/b-html5-1.6.2/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.21/b-1.6.2/b-html5-1.6.2/datatables.min.js"></script>
+{% endblock scriptHeader %}
+
 {% block custom %}
     <div class="row">
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Kurzbio und Funktionen</h3>
+                    <h4 class="card-title">Kurzbio und Funktionen</h4>
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered table-hover">
@@ -29,18 +37,13 @@
                         </tr>
                         <tr>
                             <th>
-                                {% get_verbose_name person "acad_title" %}
+                                {% get_verbose_name person "authority_url" %}
                             </th>
                             <td>
-                                {{ object.acad_title }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                {% get_verbose_name person "alt_names" %}
-                            </th>
-                            <td>
-                                {{ object.alt_names }}
+                              {% if object.authority_url %}
+                                <a href="{{ object.authority_url }}">{{ object.authority_url }}</a>
+                              {% else %}
+                              {% endif %}
                             </td>
                         </tr>
                         <tr>
@@ -55,6 +58,7 @@
                                 {% endif %}
                             </td>
                         </tr>
+                        {% if object.place_of_birth %}
                         <tr>
                             <th>
                                 {% get_verbose_name person "place_of_birth" %}
@@ -65,6 +69,7 @@
                                 </a>
                             </td>
                         </tr>
+                        {% endif %}
                         <tr>
                             <th>
                                 {% get_verbose_name person "date_of_death" %}
@@ -77,6 +82,7 @@
                                 {% endif %}
                             </td>
                         </tr>
+                        {% if object.place_of_death %}
                         <tr>
                             <th>
                                 {% get_verbose_name person "place_of_death" %}
@@ -87,120 +93,118 @@
                                 </a>
                             </td>
                         </tr>
+                        {% endif %}
                     </table>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
+
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Kurzbio und Funktionen</h3>
+                    <h4 class="card-title">Map</h4>
                 </div>
                 <div class="card-body">
-                    <table class="table table-bordered table-hover">
-                        <tr>
-                            <th>
-                                {% get_verbose_name person "belongs_to_party" %}
-                            </th>
-                            <td>
-                                <a href="{{ object.belongs_to_party.get_absolute_url }}">{{ object.belongs_to_party }}</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                {% get_verbose_name person "biography" %}
-                            </th>
-                            <td>
-                                {{ object.biography }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                {% get_verbose_name person "funktion" %}
-                            </th>
-                            <td>
-                                {{ object.funktion }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                {% get_verbose_name person "quelle" %}
-                            </th>
-                            <td>
-                                {{ object.quelle }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                {% get_verbose_name person "authority_url" %}
-                            </th>
-                            <td>
-                                <a href="{{ object.authority_url }}">
-                                    {{ object.authority_url }}
-                                </a>
-                            </td>
-                        </tr>
-                    </table>
+
+                        <script type="text/javascript">
+
+                            function map_init_basic (map, options) {
+                                {% if object.place_of_birth.lat %}
+                                    var placeName = "geboren: <a href='{{ object.place_of_birth.get_absolute_url }}'>{{ object.place_of_birth.name }}</a>"
+                                    var lat = "{{ object.place_of_birth.lat }}"
+                                    var lng = "{{ object.place_of_birth.lng }}"
+                                    L.marker([parseFloat(lat), parseFloat(lng)]).addTo(map)
+                                    .bindPopup(placeName);
+                                {% endif %}
+
+                                {% if object.place_of_death.lat %}
+                                    var placeName_d = "gestorben: <a href='{{ object.place_of_death.get_absolute_url }}'>{{ object.place_of_death.name }}</a>"
+                                    var lat = "{{ object.place_of_death.lat }}"
+                                    var lng = "{{ object.place_of_death.lng }}"
+                                    L.marker([parseFloat(lat), parseFloat(lng)]).addTo(map)
+                                    .bindPopup(placeName_d);
+                                  {% endif %}
+                                };
+
+                        </script>
+                    <div style="padding:0;">
+
+                        {% leaflet_map "yourmap" callback="window.map_init_basic" %}
+
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Beziehungen</h3>
+            <h3 class="card-title">Erzeuger folgender Karten</h3>
         </div>
         <div class="card-body">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Zu Dokumenten</h3>
-                </div>
-                <div class="card-body">
-                    <legend>
-                        Erzeuger von
-                    </legend>
-                    <ul>
-                        {% for x in object.created_by_person.all %}
-                            <li>
-                                <a href="{{ x.get_absolute_url }}">{{ x }}</a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                    <legend>
-                        Erwähnt in
-                    </legend>
-                    <ul>
-                        {% for x in object.pers_mentioned_in_res.all %}
-                            <li>
-                                <a href="{{ x.get_absolute_url }}">{{ x }}</a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Zu Institutionen</h3>
-                </div>
-                <div class="card-body">
-                    <ul>
-                        {% for x in object.belongs_to_institution.all %}
-                            <li>
-                                <a href="{{ x.get_absolute_url }}">{{ x }}</a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Zu Orten</h3>
-                </div>
-                <div class="card-body">
-                    <div id="map">
-                        platz für eine Karte
-                    </div>
-                </div>
-            </div>
+          <table class="table table-bordered table-hover" id="example">
+              <thead>
+                  <tr>
+                      <th>
+                          Laufende Nr. (Signatur)
+                      </th>
+                      <th>
+                          Bild Technik
+                      </th>
+                      <th>
+                          Künstler
+                      </th>
+                      <th>
+                          Vorschau
+                      </th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for x in object.created_by_person.all %}
+                      <tr>
+                          <td>
+                              {% if x.public or user.is_authenticated %}
+                                  <a href="{{ x.get_absolute_url }}">{{ x.legacy_id }}</a> <br /> (<small>{{ x }}</small>)
+                              {% else %}
+                                  {{ x.legacy_id }} <br /> (<small>{{ x }}</small>) <small>derzeit in Bearbeitung</small>
+                              {% endif %}
+                          </td>
+                          <td>
+                              {% for y in x.bild_technik.all %}
+                                  {{ y }}
+                              {% endfor %}
+                          </td>
+                          <td>
+                              {% for y in x.creator_person.all %}
+                                  <a href="{{ y.get_absolute_url }}">{{ y }}</a>
+                              {% endfor %}
+                          </td>
+                          <td>
+                            {% if x.public or user.is_authenticated %}
+                            <a href="{{ x.get_absolute_url }}">
+                              <img src="{{ x.get_thumb_front }}" alt="{{ x.get_thumb_front }}" class="img-thumbnail" />
+                            </a>
+                            {% else %}
+                            in Bearbeitung
+                            {% endif %}
+                          </td>
+                      </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+          <script>
+            $(document).ready(function() {
+              $('#example').DataTable({
+                dom: 'Bfrtip',
+       buttons: [
+           'copy', 'csv', 'excel', 'pdf',
+       ],
+                "language": {
+                  "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
+                }
+              });
+            } );
+          </script>
         </div>
     </div>
 {% endblock custom %}
