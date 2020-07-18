@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from . import views
+from . import tei_views
 
 app_name = 'cards'
 
@@ -13,6 +14,11 @@ urlpatterns = [
         r'^card/detail/(?P<pk>[0-9]+)$',
         views.CardDetailView.as_view(),
         name='card_detail'
+    ),
+    url(
+        r'^card/tei/(?P<pk>[0-9]+)$',
+        tei_views.as_tei,
+        name='card_as_tei'
     ),
     url(
         r'^card/create/$',
