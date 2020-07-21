@@ -3,11 +3,11 @@
   xml:base="https://id.acdh.oeaw.ac.at/official-depictions/tei/"
   xml:id="card_{{ object.legacy_id }}.xml"
   {% if object.get_next %}
-  next="https://id.acdh.oeaw.ac.at/donauhandel/tei/card_{{ object.get_next }}.xml"
+  next="https://id.acdh.oeaw.ac.at/official-depictions/tei/card_{{ object.get_next }}.xml"
   {% else %}
   {% endif %}
   {% if object.get_prev %}
-  prev="https://id.acdh.oeaw.ac.at/donauhandel/tei/card_{{ object.get_prev }}.xml" {% endif %}>
+  prev="https://id.acdh.oeaw.ac.at/official-depictions/tei/card_{{ object.get_prev }}.xml" {% endif %}>
   <teiHeader>
     <fileDesc>
       <titleStmt>
@@ -44,12 +44,16 @@
         <msDesc>
           <msIdentifier>
             <institution>{{ object.archiv }}</institution>
-            <repository>Depot Harrach</repository>
-            <idno>{{ object.legacy_id }}</idno>
+            <collection>{{ object.card_collection.name }} ({{ object.card_collection }})</collection>
+            <idno type="serien_nr">{{ object.number }}</idno>
+            <idno type="laufende_nr">{{ object.legacy_id }}</idno>
           </msIdentifier>
           <history>
             <origin>
+              {% if object.written_date %}
               <date>{{ object.written_date }}</date>
+              {% endif %}
+              <p>Erzeuger des Bildes: <persName {% if object.creator_person.first.authority_url %} key="{{ object.creator_person.first.authority_url }}" {% endif %}>{{ object.creator_person.first }}</persName></p>
             </origin>
           </history>
         </msDesc>
@@ -78,13 +82,53 @@
         </rdf:Description>
       </xenoData>
     {% endfor %}
+    {% for x in object.bild_technik.all %}
+      <xenoData xml:id="bild_technik__{{ x.id }}">
+        <rdf:Description
+          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+          xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+          xmlns:dc="http://purl.org/dc/terms/"
+          xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+          rdf:about="https://vocabs.acdh.oeaw.ac.at/official-depictions/{{x.collection.first}}/{{x.notation}}">
+          <dc:source>Joachim Bürgschwentner, Offical Depictions</dc:source>
+          <skos:topConceptOf rdf:resource="https://vocabs.acdh.oeaw.ac.at/official-depictions/{{x.collection.first}}/Schema"/>
+          <skos:prefLabel xml:lang="de">{{ x.pref_label }}</skos:prefLabel>
+          <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+          {% if x.definition %}
+            <skos:definition xml:lang="de">{{ x.definition}}</skos:definition>
+          {% endif %}
+          <skos:inScheme rdf:resource="https://vocabs.acdh.oeaw.ac.at/official-depictions/{{x.collection.first}}/Schema"/>
+        </rdf:Description>
+      </xenoData>
+    {% endfor %}
     <profileDesc>
       <textClass>
-        <keywords>
+        <keywords xml:id="keywords_subject">
           <list>
+            <head>Schlagworte - Inhalt</head>
             {% for x in object.subject_norm.all %}
               <item>
                 <rs ref="#subject_norm__{{ x.id }}">{{ x.pref_label }}</rs>
+              </item>
+            {% endfor %}
+          </list>
+        </keywords>
+        <keywords xml:id="keywords_places">
+          <list>
+            <head>Schlagworte - Orte</head>
+            {% for x in object.mentioned_place.all %}
+              <item>
+                <placeName>{{ x }}</placeName>
+              </item>
+            {% endfor %}
+          </list>
+        </keywords>
+        <keywords xml:id="bild_technik">
+          <list>
+            <head>Schlagworte - Bildtechnik</head>
+            {% for x in object.bild_technik.all %}
+              <item>
+                <rs ref="#bild_technik__{{ x.id }}">{{ x }}</rs>
               </item>
             {% endfor %}
           </list>
@@ -100,7 +144,8 @@
           {{ object.text_front }}
         </ab>
       </div>
-      <div type="verso" url="https://id.acdh.oeaw.ac.at/official-depictions/img/{{ object.img_front }}.tif">
+      <pb />
+      <div type="verso" facs="https://id.acdh.oeaw.ac.at/official-depictions/img/{{ object.img_front }}.tif">
         <ab>
           {{ object.text_back }}
         </ab>
