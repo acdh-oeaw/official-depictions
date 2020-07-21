@@ -20,7 +20,15 @@
                     <h2 style="text-align: center;">
                         <small><a href="{{ object.get_listview_url }}"><i class="fas fa-chevron-up" title="back to listview"></i></a></small>
                         {{ object }}
+                        {% if object.get_tei_url and object.public %}
+                        <small>
+                            <a href="{{ object.get_tei_url }}" title="download as XML/TEI">
+                                <i class="fas fa-download" ></i>
+                            </a>
+                        </small>
+                        {% endif %}
                         {% if user.is_authenticated %}
+                        |
                             <small>
                                 <a href="{{ object.get_edit_url }}">
                                     <i class="far fa-edit" title="edit"></i>

@@ -207,6 +207,9 @@ class Card(IdProvider):
     def get_edit_url(self):
         return reverse('cards:card_edit', kwargs={'pk': self.id})
 
+    def get_tei_url(self):
+        return reverse('cards:card_as_tei', kwargs={'pk': self.id})
+
     def get_next(self):
         next = self.__class__.objects.filter(id__gt=self.id)
         if next:
