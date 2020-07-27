@@ -1,10 +1,22 @@
 from django.conf.urls import url
 from . import views
 from . import tei_views
+from archeutils import views as arche_views
+
 
 app_name = 'cards'
 
 urlpatterns = [
+    url(
+        r'^ids$',
+        arche_views.get_ids,
+        name='get_ids'
+    ),
+    url(
+        r'^arche$',
+        arche_views.project_as_arche_graph,
+        name='project_as_arche'
+    ),
     url(
         r'^card/$',
         views.CardListView.as_view(),
@@ -19,6 +31,11 @@ urlpatterns = [
         r'^card/tei/(?P<pk>[0-9]+)$',
         tei_views.as_tei,
         name='card_as_tei'
+    ),
+    url(
+        r'^card/arche/(?P<pk>[0-9]+)$',
+        arche_views.res_as_arche_graph,
+        name='card_arche'
     ),
     url(
         r'^card/create/$',

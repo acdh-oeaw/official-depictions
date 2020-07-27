@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'cards',
     'charts',
     'handle',
+    'archeutils',
 ]
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
@@ -163,3 +164,24 @@ LEAFLET_CONFIG = {
         )
     ],
 }
+
+
+ARCHE_PROJECT_NAME = "Offizielle Ansichten"
+ARCHE_BASE_URL = "https://id.acdh.oeaw.ac.at/official-depictions"
+ARCHE_LANG = 'de'
+
+ARCHE_CONST_MAPPINGS = [
+    ('hasOwner', "https://d-nb.info/gnd/1058187643",),  # Bürgschwentner
+    ('hasContact', "https://d-nb.info/gnd/1058187643",),
+    ('hasRightsHolder', "https://d-nb.info/gnd/1058187643",),
+    ('hasPrincipalInvestigator', "https://d-nb.info/gnd/1058187643",),
+    ('hasLicensor', 'https://d-nb.info/gnd/1058187643',),
+    ('hasCreator', 'https://d-nb.info/gnd/1058187643',),
+    ('hasLicense', 'https://creativecommons.org/licenses/by/4.0/',),
+    ('hasRelatedDiscipline', 'https://vocabs.acdh.oeaw.ac.at/oefosdisciplines/601',),
+    ('hasSubject', 'Erster Weltkrieg',),
+    ('hasSubject', 'Kriegsfürsorgeamt',),
+    ('hasSubject', 'Postkarte',),
+    ('hasMetadataCreator', 'https://d-nb.info/gnd/1043833846',),  # pandorfer
+    ('hasDepositor', 'https://d-nb.info/gnd/1043833846',),  # pandorfer
+]

@@ -198,6 +198,9 @@ class Card(IdProvider):
     def get_createview_url(self):
         return reverse('cards:card_create')
 
+    def get_arche_url(self):
+        return reverse('cards:card_arche', kwargs={'pk': self.id})
+
     def get_absolute_url(self):
         return reverse('cards:card_detail', kwargs={'pk': self.id})
 
