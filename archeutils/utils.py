@@ -185,6 +185,54 @@ def as_arche_graph(res):
     g.add(
         (sub, acdh_ns.isPartOf, col_sub)
     )
+    for img in ['img_front', 'img_back']:
+        if img == 'img_front':
+            img_lit = "Bildseite"
+        else:
+            img_lit = "Addressseite"
+        img_g = Graph()
+        img_value = getattr(res, img)
+        img_sub = URIRef(f"{ARCHE_BASE_URL}/img/{getattr(res, img)}.tif")
+        img_g.add(
+            (
+                img_sub, RDF.type, acdh_ns.Resource
+            )
+        )
+        img_g.add(
+            (
+                img_sub, acdh_ns.isSourceOf, sub
+            )
+        )
+        img_g.add(
+            (
+                img_sub,
+                acdh_ns.hasCategory,
+                URIRef('https://vocabs.acdh.oeaw.ac.at/archecategory/image')
+            )
+        )
+        img_g.add(
+            (
+                img_sub,
+                acdh_ns.hasTitle,
+                Literal(
+                    f"Scan der {img_lit} der Karte, Laufende Nr.: {res.legacy_id}",
+                    lang=ARCHE_LANG
+                )
+            )
+        )
+        img_g.add(
+            (img_sub, acdh_ns.isPartOf, col_sub)
+        )
+        for const in ARCHE_CONST_MAPPINGS:
+            arche_prop_domain = ARCHE_PROPS_LOOKUP.get(const[0], 'No Match')
+            if arche_prop_domain == 'date':
+                img_g.add((img_sub, acdh_ns[const[0]], Literal(const[1], datatype=XSD.date)))
+            if arche_prop_domain == 'string':
+                img_g.add((img_sub, acdh_ns[const[0]], Literal(const[1], lang=ARCHE_LANG)))
+            else:
+                img_g.add((img_sub, acdh_ns[const[0]], URIRef(const[1])))
+
+        # g = g + img_g
     g.add(
         (
             sub,

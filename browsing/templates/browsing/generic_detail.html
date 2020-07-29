@@ -27,6 +27,13 @@
                             </a>
                         </small>
                         {% endif %}
+                        {% if object.get_arche_url and object.public %}
+                        <small>
+                            <a href="{{ object.get_arche_url }}" title="download as ARCHE-RDF">
+                                <i class="fas fa-download" ></i>
+                            </a>
+                        </small>
+                        {% endif %}
                         {% if user.is_authenticated %}
                         |
                             <small>
