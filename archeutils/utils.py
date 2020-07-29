@@ -54,7 +54,7 @@ def serialize_project():
         (sub, acdh_ns.hasTitle, Literal(f"{PROJECT_METADATA['title']}", lang=ARCHE_LANG))
     )
     # define persons
-    principal_inv = URIRef("https://d-nb.info/gnd/13140007X")
+    principal_inv = URIRef("https://d-nb.info/gnd/1058187643")
     g.add(
         (principal_inv, acdh_ns.hasTitle, Literal("Joachim Bürgschwentner", lang=ARCHE_LANG))
     )
