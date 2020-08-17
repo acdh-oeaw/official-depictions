@@ -13,7 +13,7 @@ INSTITUTION_TYPES = (
     ('Archiv', 'Archiv'),
     ('Kriegsfürsorgeorganisation', 'Kriegsfürsorgeorganisation'),
     ('Atelier', 'Atelier'),
-    ('Verlag/Druckerei', 'Verlag/Druckerei'),
+    ('Verlag/Druckerei/Reproduktionsanstalt', 'Verlag/Druckerei/Reproduktionsanstalt'),
     ('Sonstiges', 'Sonstiges'),
 )
 

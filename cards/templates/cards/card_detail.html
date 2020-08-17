@@ -151,6 +151,21 @@
                                 {% endfor %}
                             </td>
                         </tr>
+                        {% if object.creator_inst.all %}
+                          <tr>
+                              <th>
+                              {% get_verbose_name card "creator_inst" %}
+                              <i class="fas fa-info-circle" data-toggle="tooltip" data-html="true" title="{% get_help_text card 'creator_inst' %}"></i>
+                              </th>
+                              <td>
+                                  {% for x in object.creator_inst.all %}
+                                      <a href="{{ x.get_absolute_url}}">
+                                          {{ x }}
+                                      </a><br />
+                                  {% endfor %}
+                              </td>
+                          </tr>
+                        {% endif %}
                         <tr>
                             <th>
                             {% get_verbose_name card "bild_technik" %}

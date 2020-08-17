@@ -159,8 +159,8 @@ class Card(IdProvider):
     )
     creator_inst = models.ManyToManyField(
         Institution, blank=True,
-        help_text="Erzeuger des Bildes (Institution)",
-        verbose_name="Erzeuger des Bildes (Institution)",
+        help_text="An der Herstellung beteiligte Unternehmen",
+        verbose_name="An der Herstellung beteiligte Unternehmen",
         related_name="created_by_inst"
     )
     mentioned_person = models.ManyToManyField(
