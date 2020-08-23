@@ -28,14 +28,21 @@
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="front" role="tabpanel" aria-labelledby="front">
                             {% if front %}
+                            <div class="card">
+                              <div class="card-body">
                                 <div id="img_front" style="width: 100%; height: 400px"></div>
-                                <script type="text/javascript">
-                                    var viewer = OpenSeadragon({
-                                        id: "img_front",
-                                        tileSources: "{{iiif_server }}/{{front }}/info.json",
-                                        prefixUrl: "{{ openseadragon_img }}"
-                                    });
-                                </script>
+                              </div>
+                              <div class="card-footer">
+                                <small><a href="{{iiif_server }}/{{front }}/info.json">IIIF</a></small>
+                              </div>
+                            </div>
+                            <script type="text/javascript">
+                                var viewer = OpenSeadragon({
+                                    id: "img_front",
+                                    tileSources: "{{iiif_server }}/{{front }}/info.json",
+                                    prefixUrl: "{{ openseadragon_img }}"
+                                });
+                            </script>
                             {% else %}
                             <p>
                                 noch kein Bild zugeordnet
@@ -45,14 +52,21 @@
                         </div>
                         <div class="tab-pane fade" id="back" role="tabpanel" aria-labelledby="back">
                             {% if front %}
+                            <div class="card">
+                              <div class="card-body">
                                 <div id="img_back" style="width: 100%; height: 400px"></div>
-                                <script type="text/javascript">
-                                    var viewer = OpenSeadragon({
-                                        id: "img_back",
-                                        tileSources: "{{iiif_server }}/{{ back }}/info.json",
-                                        prefixUrl: "{{ openseadragon_img }}"
-                                    });
-                                </script>
+                              </div>
+                              <div class="card-footer">
+                                <small><a href="{{iiif_server }}/{{front }}/info.json">IIIF</a></small>
+                              </div>
+                            </div>
+                            <script type="text/javascript">
+                                var viewer = OpenSeadragon({
+                                    id: "img_back",
+                                    tileSources: "{{iiif_server }}/{{ back }}/info.json",
+                                    prefixUrl: "{{ openseadragon_img }}"
+                                });
+                            </script>
                             {% else %}
                                 <p>
                                     noch kein Bild zugeordnet
