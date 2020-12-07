@@ -16,20 +16,20 @@ class CardCollection(IdProvider):
 
     name = models.CharField(
         max_length=250, blank=True,
-        verbose_name="Name der Sammlung"
+        verbose_name="Name der Serie"
     )
     abbreviation = models.CharField(
         max_length=25, blank=True,
-        verbose_name="Sammlungskürzel"
+        verbose_name="Serienkürzel"
     )
     description = models.TextField(
         blank=True, verbose_name="Beschreibung"
     )
     part_of = models.ForeignKey(
         'CardCollection',
-        blank=True, null=True, verbose_name="Teilsammlung von",
+        blank=True, null=True, verbose_name="Teilserie von",
         related_name="has_parts",
-        help_text="Ist Teilsammlung von",
+        help_text="Ist Teilserie von",
         on_delete=models.SET_NULL
     )
 
