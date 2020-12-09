@@ -48,6 +48,14 @@ class CardListFilter(django_filters.FilterSet):
         help_text=Person._meta.get_field('date_of_death').help_text,
         label=Person._meta.get_field('date_of_death').verbose_name
     )
+    creator_inst = django_filters.ModelMultipleChoiceFilter(
+        queryset=Institution.objects.filter(
+            institution_type="Verlag/Druckerei/Reproduktionsanstalt"
+        ),
+        help_text=Card._meta.get_field('creator_inst').help_text,
+        label=Card._meta.get_field('creator_inst').verbose_name,
+        widget=forms.CheckboxSelectMultiple(attrs={'class': 'chbx-select-multi'})
+    )
 
     class Meta:
         model = Card

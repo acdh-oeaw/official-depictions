@@ -7,7 +7,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Info</h3>
+                    <h4 class="card-title">Info</h4>
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered table-hover">
@@ -19,6 +19,16 @@
                                 {{ object.written_name }}
                             </td>
                         </tr>
+                        {% if object.authority_url %}
+                        <tr>
+                            <th>
+                                {% get_verbose_name institution "authority_url" %}
+                            </th>
+                            <td>
+                                <a href="{{ object.authority_url}}">{{ object.authority_url }}</a>
+                            </td>
+                        </tr>
+                        {% endif %}
                         <tr>
                             <th>
                                 {% get_verbose_name institution "alt_names" %}
@@ -50,7 +60,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Ort und Kontext</h3>
+                    <h4 class="card-title">Ort und Kontext</h4>
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered table-hover">

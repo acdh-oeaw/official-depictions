@@ -123,9 +123,10 @@ class CardFilterFormHelper(FormHelper):
                     css_id="texte"
                     ),
                 AccordionGroup(
-                    'Personen',
+                    'Personen / Institutionen',
                     'creator_person',
                     'creator_person__date_of_death',
+                    'creator_inst',
                     css_id="personen"
                     ),
                 AccordionGroup(
