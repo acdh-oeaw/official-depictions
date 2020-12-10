@@ -82,7 +82,10 @@ class Card(IdProvider):
         blank=True, null=True, verbose_name="Chronologie"
     )
     number = models.CharField(
-        max_length=25, blank=True, verbose_name="Nr (Serie)"
+        max_length=25,
+        blank=True,
+        verbose_name="Nr. innerhalb der Serie",
+        help_text="Nummer innerhalb der Serie"
     )
     card_collection = models.ForeignKey(
         CardCollection, blank=True, null=True, verbose_name="Serie",

@@ -105,7 +105,12 @@ class Institution(IdProvider):
         verbose_name="Name",
         max_length=300, blank=True
     )
-    authority_url = models.CharField(max_length=300, blank=True)
+    authority_url = models.CharField(
+        max_length=300,
+        blank=True,
+        verbose_name="GND-ID",
+        help_text="z.B.: https://d-nb.info/gnd/5184714-0"
+    )
     alt_names = models.TextField(
         blank=True, verbose_name="Alternative Bezeichnungen",
         help_text="Im Falle mehrerer Einträge, diese bitte mit ';' trennen"

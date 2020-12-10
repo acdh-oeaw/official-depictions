@@ -109,6 +109,13 @@
                         </tr>
                         <tr>
                             <th>
+                            {% get_verbose_name card "number" %}
+                            <i class="fas fa-info-circle" data-toggle="tooltip" data-html="true" title="{% get_help_text card 'number' %}"></i>
+                            </th>
+                            <td>{{ object.number }}</td>
+                        </tr>
+                        <tr>
+                            <th>
                             {% get_verbose_name card "archiv" %}
                             <i class="fas fa-info-circle" data-toggle="tooltip" data-html="true" title="{% get_help_text card 'archiv' %}"></i>
                             </th>
