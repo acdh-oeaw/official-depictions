@@ -3,6 +3,12 @@ from django import forms
 
 from . models import Person, Place, Institution
 
+DATE_LOOKUP_CHOICES = [
+    ('exact', 'genaues Datum'),
+    ('gte', 'später als'),
+    ('lte', 'früher als'),
+]
+
 
 class PersonListFilter(django_filters.FilterSet):
     name = django_filters.CharFilter(
@@ -24,6 +30,16 @@ class PersonListFilter(django_filters.FilterSet):
         queryset=Place.objects.filter(is_deathplace__isnull=False).distinct(),
         help_text=Person._meta.get_field('place_of_death').help_text,
         label=Person._meta.get_field('place_of_death').verbose_name,
+    )
+    date_of_birth = django_filters.LookupChoiceFilter(
+        field_class=forms.DateField,
+        lookup_choices=DATE_LOOKUP_CHOICES,
+        help_text=Person._meta.get_field('date_of_birth').help_text,
+    )
+    date_of_death = django_filters.LookupChoiceFilter(
+        field_class=forms.DateField,
+        lookup_choices=DATE_LOOKUP_CHOICES,
+        help_text=Person._meta.get_field('date_of_death').help_text,
     )
 
     class Meta:

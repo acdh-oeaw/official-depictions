@@ -216,7 +216,7 @@ class Person(IdProvider):
     date_of_birth = models.DateField(
         auto_now=False, auto_now_add=False, blank=True, null=True,
         verbose_name="Geburtsdatum",
-        help_text="YYYY-MM-DD"
+        help_text="Geburtsdatum, bitte im Format: YYYY-MM-DD"
     )
     date_of_birth_written = models.CharField(
         verbose_name="ungefähres Geburtsdatum",
@@ -231,7 +231,7 @@ class Person(IdProvider):
     date_of_death = models.DateField(
         auto_now=False, auto_now_add=False, blank=True, null=True,
         verbose_name="Todesdatum",
-        help_text="YYYY-MM-DD"
+        help_text="Datum des Todes, bitte im Format: YYYY-MM-DD"
     )
     date_of_death_written = models.CharField(
         verbose_name="ungefähres Sterbedatum",

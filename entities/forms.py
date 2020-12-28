@@ -53,6 +53,8 @@ class PersonFilterFormHelper(FormHelper):
                     'biographisches',
                     'place_of_birth',
                     'place_of_death',
+                    'date_of_birth',
+                    'date_of_death',
                     css_id="bio"
                     ),
                 )
