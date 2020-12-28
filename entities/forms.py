@@ -44,15 +44,16 @@ class PersonFilterFormHelper(FormHelper):
         self.layout = Layout(
             Accordion(
                 AccordionGroup(
-                    'Basic search options',
+                    'Name, Vorname',
                     'name',
                     'forename',
                     css_id="basic_search_fields"
                     ),
                 AccordionGroup(
-                    'Mitgliedschaften',
-                    'belongs_to_institution',
-                    css_id="more"
+                    'biographisches',
+                    'place_of_birth',
+                    'place_of_death',
+                    css_id="bio"
                     ),
                 )
             )

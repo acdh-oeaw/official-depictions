@@ -15,6 +15,16 @@ class PersonListFilter(django_filters.FilterSet):
         help_text=Person._meta.get_field('belongs_to_institution').help_text,
         label=Person._meta.get_field('belongs_to_institution').verbose_name
         )
+    place_of_birth = django_filters.ModelMultipleChoiceFilter(
+        queryset=Place.objects.filter(is_birthplace__isnull=False).distinct(),
+        help_text=Person._meta.get_field('place_of_birth').help_text,
+        label=Person._meta.get_field('place_of_birth').verbose_name,
+    )
+    place_of_death = django_filters.ModelMultipleChoiceFilter(
+        queryset=Place.objects.filter(is_deathplace__isnull=False).distinct(),
+        help_text=Person._meta.get_field('place_of_death').help_text,
+        label=Person._meta.get_field('place_of_death').verbose_name,
+    )
 
     class Meta:
         model = Person
