@@ -188,10 +188,10 @@ class Card(IdProvider):
     pid = GenericRelation(Pid, blank=True, null=True, related_query_name="get_pid")
 
     def __str__(self):
-        if self.signature:
-            return "{}".format(self.signature)
+        if self.legacy_id:
+            return f"Offizielle Ansichten, Karte Nr. {self.legacy_id}"
         else:
-            return "{}".format(self.id)
+            return f"Officizelle Ansichten, Karte Nr. [{self.id}]"
 
     @classmethod
     def get_listview_url(self):
