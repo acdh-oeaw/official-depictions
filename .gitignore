@@ -42,3 +42,5 @@ local.py
 myenv/
 to_jp2.sh
 play/
+env.production
+env.secret
