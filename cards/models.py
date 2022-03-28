@@ -33,6 +33,12 @@ class CardCollection(IdProvider):
         on_delete=models.SET_NULL
     )
 
+    class Meta:
+
+        ordering = [
+            'id',
+        ]
+
     def __str__(self):
         return "{}".format(self.abbreviation)
 
@@ -186,6 +192,12 @@ class Card(IdProvider):
     )
     public = models.BooleanField(default=False)
     pid = GenericRelation(Pid, blank=True, null=True, related_query_name="get_pid")
+
+    class Meta:
+
+        ordering = [
+            'id',
+        ]
 
     def __str__(self):
         if self.legacy_id:
