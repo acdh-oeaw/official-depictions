@@ -10,12 +10,43 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
+
 import os
+from pathlib import Path
+
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+BASE_DIR = Path(__file__).resolve().parent.parent
 os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(os.path.join(__file__, '../'))))
+
+
 ACDH_IMPRINT_URL = "https://shared.acdh.oeaw.ac.at/acdh-common-assets/api/imprint.php?serviceID="
-REDMINE_ID = 8112
+
+REDMINE_ID = os.environ.get('REDMINE_ID', 8112)
+SECRET_KEY = os.environ.get('SECRET_KEY', 'TZRlajdflsdjflöjflHHwGV')
+ADD_ALLOWED_HOST = os.environ.get('ALLOWED_HOST', '*')
+
+if os.environ.get('DEBUG', False):
+    DEBUG = True
+else:
+    DEBUG = False
+
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "0.0.0.0",
+    ADD_ALLOWED_HOST,
+]
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('POSTGRES_DB', 'depictions'),
+        'USER': os.environ.get('POSTGRES_USER', 'postgres'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'postgres'),
+        'HOST': os.environ.get('POSTGRES_HOST', 'localhost'),
+        'PORT': os.environ.get('POSTEGRES_PORT', '5432')
+    }
+}
 
 # Application definition
 
@@ -32,7 +63,6 @@ INSTALLED_APPS = [
     'crispy_forms',
     'django_filters',
     'django_tables2',
-    'django_extensions',
     'rest_framework',
     'leaflet',
     'idprovider',
