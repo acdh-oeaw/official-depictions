@@ -53,7 +53,6 @@ INSTALLED_APPS = [
     'browsing',
     'vocabs',
     'entities',
-    'stats',
     'cards',
     'charts',
     'handle',
