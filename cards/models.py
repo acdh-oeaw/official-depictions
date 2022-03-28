@@ -239,7 +239,7 @@ class Card(IdProvider):
 
     def get_thumb_front(self):
         if self.img_front:
-            thumb_url = f"{IIIF_SERVER}/{self.img_front}/full/250,/0/default.jpg"
+            thumb_url = f"{IIIF_SERVER}/{self.img_front}.jp2/full/250,/0/default.jpg"
         else:
             thumb_url = None
         return thumb_url
