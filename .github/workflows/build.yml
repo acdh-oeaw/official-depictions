@@ -1,7 +1,8 @@
 name: Build and push to DockerHub
 
 on:
-  workflow_dispatch
+  release:
+    types: [published]
 
 jobs:
   push_to_registry:
